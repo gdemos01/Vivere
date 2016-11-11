@@ -22,8 +22,8 @@ public class myPagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                TabFragment1 tab1 = new TabFragment1();
-                return tab1;
+                AppointmentsFragment appointmentsFragment = new AppointmentsFragment();
+                return appointmentsFragment;
             case 1:
                 MedicationFragment tab2 = new MedicationFragment();
                 return tab2;
