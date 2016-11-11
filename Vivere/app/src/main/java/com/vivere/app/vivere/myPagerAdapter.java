@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 /**
- * Created by User on 11/11/2016.
+ * Created by Giorgos on 11/11/2016.
  */
 
 public class myPagerAdapter extends FragmentStatePagerAdapter {
@@ -25,11 +25,17 @@ public class myPagerAdapter extends FragmentStatePagerAdapter {
                 TabFragment1 tab1 = new TabFragment1();
                 return tab1;
             case 1:
-                TabFragment2 tab2 = new TabFragment2();
+                MedicationFragment tab2 = new MedicationFragment();
                 return tab2;
             case 2:
-                TabFragment3 tab3 = new TabFragment3();
+                ExamsFragment tab3 = new ExamsFragment();
                 return tab3;
+            case 3:
+                HistoryFragment historyFragment = new HistoryFragment();
+                return historyFragment;
+            case 4:
+                HabitsFragment habitsFragment = new HabitsFragment();
+                return habitsFragment;
             default:
                 return null;
         }
