@@ -7,11 +7,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.database.sqlite.SQLiteDatabase;
+
+
+import com.vivere.app.vivere.db.DatabaseHelper;
+
 
 import com.vivere.app.vivere.adapters.myPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
+    //Database declaration
+    public static DatabaseHelper mydb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //initialize the database
+        mydb = new DatabaseHelper(this);
+        SQLiteDatabase db = mydb.getWritableDatabase();
     }
 
 
