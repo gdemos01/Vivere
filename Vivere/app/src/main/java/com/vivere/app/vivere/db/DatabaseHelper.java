@@ -18,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TB_HABITS = "Habits";
     private static final String TB_ILLNESSES = "Illnesses";
     private static final String TB_MEDICATION = "Medication";
-    private static final String TB_MEDSPEC = "Medical Specialist";
+    private static final String TB_MEDSPEC = "MedicalSpecialist";
     private static final String TB_EXAM = "Exam";
     private static final String TB_INHERITANCE = "Inheritance";
     private static final String TB_APPOINTMENT = "Appointment";
@@ -93,7 +93,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_HABITS = "CREATE TABLE " + TB_HABITS + " (" + COL_HNAME + " TEXT PRIMARY KEY NOT NULL, "
             + COL_TYPE + " TEXT NOT NULL, " + COL_DAYSTOGO + " INT NOT NULL ," + COL_DAYSDONE + " INT NOT NULL, " + COL_TIMESTAMP
-            + " TEXT NOT NULL, " + COL_LASTUPDATED + " DATE NOT NULL " + COL_USERNAME + " TEXT NOT NULL REFERENCES " + TB_PATIENT + "(" + COL_USERNAME + "))";
+            + " TEXT NOT NULL, " + COL_LASTUPDATED + " DATE NOT NULL, " + COL_USERNAME + " TEXT NOT NULL REFERENCES " + TB_PATIENT + "(" + COL_USERNAME + "))";
 
     private static final String CREATE_ILLNESSES = "CREATE TABLE " + TB_ILLNESSES + " (" + COL_INAME + " TEXT NOT NULL, "
             + COL_TYPE + " TEXT NOT NULL, " + COL_VALUE + " TEXT NOT NULL, " + "PRIMARY KEY (" + COL_INAME + ", " + COL_TYPE + ", " + COL_VALUE + "))";
