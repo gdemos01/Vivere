@@ -60,7 +60,7 @@ public class ExamsFragment extends Fragment {
         exam2.setId(2335);
         exam2.setAdvice("You will die.");
         exam2.setResults("Death");
-        exam2.setTimestamp(Timestamp.valueOf("2013-10-09 10:49:29.1000"));
+        exam2.setTimestamp(Timestamp.valueOf("2013-10-09 10:49:29"));
         exam2.setType("Analysis");
         exam2.setUsername("andrew");
         exam2.setMsusername("drkelly");

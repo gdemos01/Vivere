@@ -12,16 +12,16 @@
         android:layout_marginLeft="15dp"
         android:gravity="center_vertical"
         android:text="Panadol"
-        android:textSize="25dp" />
+        android:textSize="18dp" />
 
     <ImageView
         android:layout_width="0px"
-        android:layout_height="30dp"
+        android:layout_height="20dp"
         android:id="@+id/imgExamItemButton"
         android:layout_weight="1"
         android:layout_gravity="center_vertical"
         android:src="@android:drawable/ic_menu_delete"
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="18dp"/>
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"/>
 
 </LinearLayout>

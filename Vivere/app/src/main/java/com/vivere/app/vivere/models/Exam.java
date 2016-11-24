@@ -91,4 +91,17 @@ public class Exam {
     public void setMsusername(String msusername) {
         this.msusername = msusername;
     }
+
+    @Override
+    public String toString() {
+        return "Exam{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", results='" + results + '\'' +
+                ", timestamp=" + timestamp +
+                ", advice='" + advice + '\'' +
+                ", username='" + username + '\'' +
+                ", msusername='" + msusername + '\'' +
+                '}';
+    }
 }
