@@ -8,7 +8,7 @@
         android:layout_width="0px"
         android:layout_height="50dp"
         android:id="@+id/imgDoctor"
-        android:src="@drawable/exams_flaticon"
+        android:src="@drawable/ic_account_circle_black_24dp"
         android:layout_weight="1"/>
 
     <TextView
