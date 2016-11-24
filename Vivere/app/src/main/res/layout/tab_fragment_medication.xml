@@ -61,8 +61,8 @@
             android:clickable="true"
             app:fabSize="normal"
             app:backgroundTint="#97CE68"
-            app:srcCompat="@android:drawable/ic_input_add"
-            android:id="@+id/appointmentsActionBt"
+            app:srcCompat="@drawable/ic_add_white_24dp"
+            android:id="@+id/medicationActionBtn"
             android:layout_weight="1" />
 
     </LinearLayout>
