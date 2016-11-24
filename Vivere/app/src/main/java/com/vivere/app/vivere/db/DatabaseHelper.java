@@ -50,7 +50,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //TABLE Medication
     private static final String COL_MNAME = "mname";
-    private static final String COL_DURATION = "duration";
+    private static final String COL_DURATION = "duration"; //in days
     private static final String COL_FREQUENCY = "frequency";
     private static final String COL_DOSE = "dose";
     private static final String COL_TIMESTAKEN = "timestaken";
@@ -93,7 +93,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_HABITS = "CREATE TABLE " + TB_HABITS + " (" + COL_HNAME + " TEXT PRIMARY KEY NOT NULL, "
             + COL_TYPE + " TEXT NOT NULL, " + COL_DAYSTOGO + " INT NOT NULL ," + COL_DAYSDONE + " INT NOT NULL, " + COL_TIMESTAMP
-            + " TEXT NOT NULL, " + COL_LASTUPDATED + " DATE NOT NULL, " + COL_USERNAME + " TEXT NOT NULL REFERENCES " + TB_PATIENT + "(" + COL_USERNAME + "))";
+            + " DATE NOT NULL, " + COL_LASTUPDATED + " DATE NOT NULL, " + COL_USERNAME + " TEXT NOT NULL REFERENCES " + TB_PATIENT + "(" + COL_USERNAME + "))";
 
     private static final String CREATE_ILLNESSES = "CREATE TABLE " + TB_ILLNESSES + " (" + COL_INAME + " TEXT NOT NULL, "
             + COL_TYPE + " TEXT NOT NULL, " + COL_VALUE + " TEXT NOT NULL, " + "PRIMARY KEY (" + COL_INAME + ", " + COL_TYPE + ", " + COL_VALUE + "))";
@@ -103,7 +103,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + " INT NOT NULL, " + COL_LASTUPDATED + " DATE NOT NULL " + ")";
 
     private static final String CREATE_EXAM = "CREATE TABLE " + TB_EXAM + " (" + COL_ID + " INT PRIMARY KEY NOT NULL, "
-            + COL_TYPE + " TEXT NOT NULL, " + COL_RESULTS + " TEXT NOT NULL ," + COL_TIMESTAMP + " TEXT NOT NULL, " + COL_DOCTORSADVICE
+            + COL_TYPE + " TEXT NOT NULL, " + COL_RESULTS + " TEXT NOT NULL ," + COL_TIMESTAMP + " DATE NOT NULL, " + COL_DOCTORSADVICE
             + " TEXT NOT NULL, " + COL_USERNAME + " TEXT NOT NULL REFERENCES " + TB_PATIENT + "(" + COL_USERNAME + "), "
             + COL_MSUSERNAME + " TEXT NOT NULL REFERENCES " + TB_MEDSPEC + "(" + COL_MSUSERNAME + ")" + ")";
 
@@ -117,7 +117,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_APPOINTMENT = "CREATE TABLE " + TB_APPOINTMENT + " (" + COL_USERNAME + " TEXT NOT NULL REFERENCES "
             + TB_PATIENT + "(" + COL_USERNAME + "), " + COL_MSUSERNAME + " TEXT NOT NULL REFERENCES " + TB_MEDSPEC + "(" + COL_MSUSERNAME + "), "
-            + COL_TIMESTAMP + " TEXT NOT NULL, " + COL_DESCRIPTION + " TEXT NOT NULL, "
+            + COL_TIMESTAMP + " DATE NOT NULL, " + COL_DESCRIPTION + " TEXT NOT NULL, "
             + "PRIMARY KEY (" + COL_USERNAME + ", " + COL_MSUSERNAME + ", " + COL_TIMESTAMP + ")" + ")";
 
     /*Database Constructor
