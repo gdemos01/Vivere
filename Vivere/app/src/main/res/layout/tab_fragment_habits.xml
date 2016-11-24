@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <Space
@@ -53,13 +54,16 @@
             android:layout_height="match_parent"
             android:layout_weight="3"/>
 
-        <TextView
+        <android.support.design.widget.FloatingActionButton
             android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textSize="30dp"
-            android:text="+"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="true"
+            app:fabSize="normal"
+            app:backgroundTint="#97CE68"
+            app:srcCompat="@android:drawable/ic_input_add"
+            android:id="@+id/appointmentsActionBt"
+            android:layout_weight="1" />
 
     </LinearLayout>
 
