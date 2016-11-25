@@ -4,11 +4,87 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:text="Medical Specialist"
+        android:textSize="23dp"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+        android:background="@color/colorPrimary"
+        android:layout_weight="1"/>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:layout_width="0px"
+            android:layout_height="50dp"
+            android:id="@+id/imgDoctorAppView"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_account_circle_black_24dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:id="@+id/tvDoctorNameAppView"
+            android:layout_margin="15dp"
+            android:layout_weight="3"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:text="Dr Strange"
+            android:textSize="18dp"/>
+
+        <Space
+            android:layout_width="0px"
+            android:layout_height="30dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0px"
+        android:text="Date"
+
+        android:gravity="center_vertical"
+        android:background="@color/colorPrimary"
+        android:textSize="23dp"
+        android:paddingLeft="10dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_margin="15dp"
+        android:text="24 - 7 - 2017 15:00"
         android:textSize="18dp"
-        android:text="View appointment dude"/>
+
+        android:gravity="center_vertical"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:background="@color/colorPrimary"
+        android:text="Description"
+        android:textSize="23dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_margin="15dp"
+        android:text="My nose hurts and I need to get my prostate examined"
+        android:textSize="18dp"
+        android:layout_weight="3"/>
 
 </LinearLayout>
