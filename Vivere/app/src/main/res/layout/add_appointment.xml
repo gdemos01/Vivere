@@ -15,7 +15,7 @@
             android:layout_marginBottom="20dp"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
-            android:textSize="25dp"
+            android:textSize="18dp"
             android:text="Select Type"/>
 
         <Spinner
@@ -32,7 +32,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="20dp"
             android:gravity="center_vertical"
-            android:textSize="25dp"
+            android:textSize="18dp"
             android:text="Search Medical Specialist"/>
 
         <SearchView
@@ -41,6 +41,17 @@
             android:layout_weight="2"
             android:layout_marginBottom="20dp"/>
 
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:layout_marginLeft="0dp"
+            android:id="@+id/addAppListView"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp">
+        </ListView>
+
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0px"
@@ -48,7 +59,7 @@
             android:layout_weight="2"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
-            android:textSize="25dp"
+            android:textSize="18dp"
             android:text="Select Available Date"/>
 
         <DatePicker
@@ -66,7 +77,7 @@
             android:layout_weight="2"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
-            android:textSize="25dp"
+            android:textSize="18dp"
             android:text="Select Available Time"/>
 
         <TimePicker
@@ -94,7 +105,7 @@
                 android:gravity="center"
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
-                android:textSize="25dp"
+                android:textSize="18dp"
                 android:layout_weight="1"/>
 
             <TextView
@@ -105,7 +116,7 @@
                 android:gravity="center"
                 android:clickable="true"
                 android:background="?attr/selectableItemBackground"
-                android:textSize="25dp"
+                android:textSize="18dp"
                 android:layout_weight="1"/>
 
         </LinearLayout>

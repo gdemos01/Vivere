@@ -1,6 +1,8 @@
 package com.vivere.app.vivere.adapters;
 
+import android.support.v4.app.Fragment;
 import android.content.Context;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.vivere.app.vivere.Fragments.AppointmentsFragment;
 import com.vivere.app.vivere.R;
 import com.vivere.app.vivere.models.Appointment;
 
@@ -19,10 +22,12 @@ import java.util.ArrayList;
 
 public class AppointmentsAdapter extends ArrayAdapter {
     ArrayList<Appointment> data = new ArrayList<>();
+    AppointmentsFragment appFragment;
     Context appActivity;
 
-    public AppointmentsAdapter(Context context, int resource){
+    public AppointmentsAdapter(Context context,Fragment homeFragment, int resource){
         super(context,resource);
+        this.appFragment = (AppointmentsFragment) homeFragment;
         this.appActivity = context;
     }
 
@@ -50,7 +55,7 @@ public class AppointmentsAdapter extends ArrayAdapter {
     public View getView(final int position, View convertView, ViewGroup parent){
         View row;
         row = convertView;
-        AppointmentHolder appHolder;
+        final AppointmentHolder appHolder;
         if(row==null){
             LayoutInflater layoutInflater =
                     (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -68,15 +73,38 @@ public class AppointmentsAdapter extends ArrayAdapter {
          */
 
         appHolder.doctorName.setText(data.get(position).getDoctor());
-
         appHolder.appButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Delete the appointment
+                final Handler handler = new Handler();
+                if(data.size()!=0) {
+                    // Delete from databases as well
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            data.remove(position);
+                            appFragment.updateAdapter(position);
+                        }
+                    }, 300);
+                }
             }
         });
-
+        row.setOnClickListener(new AppointmentsAdapter.OnItemClickListener(position));
         return row;
+    }
+
+    /********* Called when Item click in ListView ************/
+    private class OnItemClickListener  implements View.OnClickListener {
+        private int mPosition;
+
+        OnItemClickListener(int position){
+            mPosition = position;
+        }
+
+        @Override
+        public void onClick(View arg0) {
+            appFragment.onItemClick(mPosition);
+        }
     }
 
     public void clearData(){

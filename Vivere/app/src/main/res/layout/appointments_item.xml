@@ -19,7 +19,7 @@
         android:layout_marginLeft="15dp"
         android:gravity="center_vertical"
         android:text="Panadol"
-        android:textSize="25dp"/>
+        android:textSize="18dp"/>
 
     <ImageView
         android:layout_width="0px"

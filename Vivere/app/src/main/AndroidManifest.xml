@@ -25,6 +25,12 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+        <activity
+            android:name=".viewAppointment"
+            android:label="View Appointment"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
 
     </application>
 

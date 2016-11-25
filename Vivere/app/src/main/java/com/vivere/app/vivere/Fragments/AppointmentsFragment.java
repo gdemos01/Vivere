@@ -14,6 +14,7 @@ import com.vivere.app.vivere.R;
 import com.vivere.app.vivere.adapters.AppointmentsAdapter;
 import com.vivere.app.vivere.addAppointment;
 import com.vivere.app.vivere.models.Appointment;
+import com.vivere.app.vivere.viewAppointment;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,7 +45,7 @@ public class AppointmentsFragment extends Fragment {
         }
 
         appActionBtn = (FloatingActionButton) view.findViewById(R.id.appointmentsActionBtn);
-        appAdapter = new AppointmentsAdapter(getActivity(),R.layout.appointments_item);
+        appAdapter = new AppointmentsAdapter(getActivity(),AppointmentsFragment.this,R.layout.appointments_item);
         appList = (ListView) view.findViewById(R.id.appointmentsListView);
         appList.setAdapter(appAdapter);
 
@@ -70,9 +71,15 @@ public class AppointmentsFragment extends Fragment {
     }
 
     public void updateAdapter(int pos) {
-
         appointments.remove(pos);
         appAdapter.notifyDataSetChanged(); //update adapter
+    }
+
+    public void onItemClick(int pos){
+        // Do something on item click
+        Intent intent = new Intent(getActivity(), viewAppointment.class);
+        //intent.putExtra("video_id",videos.get(mPosition).getId());
+        startActivity(intent);
     }
 
     public void setListData(Appointment app){
