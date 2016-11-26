@@ -169,6 +169,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /**
+     * Adds an individual Patient to the local database.
+     * @param p
+     */
     public void addPatient(Patient p) {
         SQLiteDatabase db = this.getWritableDatabase();
         String sql =
@@ -180,6 +184,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(sql);
     }
 
+    /**
+     * Gets an individual patient from the local database.
+     * @param username
+     * @return
+     */
     public Patient getPatient(String username) {
         SQLiteDatabase db = this.getReadableDatabase();
         String sql = "SELECT * FROM `Patient` WHERE username = '" + username + "';";
@@ -205,6 +214,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return patient;
     }
 
+    /**
+     * Adds an individual habit for a specific patient (via username) to the local database.
+     * @param h
+     */
     public void addHabit(Habit h) {
         SQLiteDatabase db = this.getWritableDatabase();
         String sql =
@@ -216,6 +229,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(sql);
     }
 
+    /**
+     * Gets an individual habit by current habit name of a specific patient (via username) from the
+     * local database.
+     * @param hname
+     * @param username
+     * @return
+     */
     public Habit getHabit(String hname, String username) {
         SQLiteDatabase db = this.getReadableDatabase();
         String sql = "SELECT * FROM `Habits` WHERE username = '" + username + "' AND hname = '"
