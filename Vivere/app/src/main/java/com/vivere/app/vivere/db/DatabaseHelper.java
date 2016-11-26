@@ -101,7 +101,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + " DATE NOT NULL, " + COL_LASTUPDATED + " DATE NOT NULL, " + COL_USERNAME + " TEXT NOT NULL REFERENCES " + TB_PATIENT + "(" + COL_USERNAME + "))";
 
     private static final String CREATE_ILLNESSES = "CREATE TABLE " + TB_ILLNESSES + " (" + COL_INAME + " TEXT NOT NULL, "
-            + COL_TYPE + " TEXT NOT NULL, " + COL_VALUE + " TEXT NOT NULL, " + "PRIMARY KEY (" + COL_INAME + ", " + COL_TYPE + ", " + COL_VALUE + "))";
+            + COL_FACTOR + " TEXT NOT NULL, " + COL_VALUE + " TEXT NOT NULL, " + "PRIMARY KEY (" + COL_INAME + ", " + COL_FACTOR + ", " + COL_VALUE + "))";
 
     private static final String CREATE_MEDICATION = "CREATE TABLE " + TB_MEDICATION + " (" + COL_MNAME + " TEXT PRIMARY KEY NOT NULL, "
             + COL_DURATION + " INT NOT NULL, " + COL_FREQUENCY + " TEXT NOT NULL ," + COL_DOSE + " TEXT NOT NULL, " + COL_TIMESTAKEN
@@ -260,6 +260,44 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         c.close();
 
         return habit;
+    }
+
+    /**
+     * Adds a new illness to the local database.
+     * @param l
+     */
+    public void addIllness(Illness l) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql =
+                "INSERT or replace INTO Illnesses (iname, factor, value) VALUES('" + l.getIname() + "', '"
+                        + l.getFactor() + "', '" + l.getValue() + "')";
+        db.execSQL(sql);
+    }
+
+    /**
+     * Gets a specific illness (via iname) from the local database.
+     * @param iname
+     * @return
+     */
+    public Illness getIllness(String iname) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = "SELECT * FROM `Illnesses` WHERE iname = '" + iname + "';";
+
+        Cursor c = null;
+        c = db.rawQuery(sql, null);
+
+        c.moveToFirst();
+
+        Illness illness = new Illness();
+        illness.setIname(c.getString(0));
+        illness.setFactor(c.getString(1));
+        illness.setValue(c.getString(2));
+
+        c.moveToNext();
+
+        c.close();
+
+        return illness;
     }
 
 }
