@@ -105,7 +105,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_MEDICATION = "CREATE TABLE " + TB_MEDICATION + " (" + COL_MNAME + " TEXT PRIMARY KEY NOT NULL, "
             + COL_DURATION + " INT NOT NULL, " + COL_FREQUENCY + " TEXT NOT NULL ," + COL_DOSE + " TEXT NOT NULL, " + COL_TIMESTAKEN
-            + " INT NOT NULL, " + COL_LASTUPDATED + " DATE NOT NULL " + ")";
+            + " INT NOT NULL, "  + COL_USERNAME + " TEXT NOT NULL ," + COL_LASTUPDATED + " DATE NOT NULL " + ")";
 
     private static final String CREATE_EXAM = "CREATE TABLE " + TB_EXAM + " (" + COL_ID + " INT PRIMARY KEY NOT NULL, "
             + COL_TYPE + " TEXT NOT NULL, " + COL_RESULTS + " TEXT NOT NULL ," + COL_TIMESTAMP + " DATE NOT NULL, " + COL_DOCTORSADVICE
@@ -171,6 +171,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Adds an individual Patient to the local database.
+     *
      * @param p
      */
     public void addPatient(Patient p) {
@@ -186,6 +187,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Gets an individual patient from the local database.
+     *
      * @param username
      * @return
      */
@@ -216,6 +218,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Adds an individual habit for a specific patient (via username) to the local database.
+     *
      * @param h
      */
     public void addHabit(Habit h) {
@@ -232,6 +235,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /**
      * Gets an individual habit by current habit name of a specific patient (via username) from the
      * local database.
+     *
      * @param hname
      * @param username
      * @return
@@ -264,6 +268,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Adds a new illness to the local database.
+     *
      * @param l
      */
     public void addIllness(Illness l) {
@@ -276,6 +281,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Gets a specific illness (via iname) from the local database.
+     *
      * @param iname
      * @return
      */
@@ -298,6 +304,55 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         c.close();
 
         return illness;
+    }
+
+    /**
+     * Adds a new medication to the local database.
+     *
+     * @param m
+     */
+    public void addMedication(Medication m) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql =
+                "INSERT or replace INTO Medication (mname, duration, frequency, dose, timestaken, "
+                        + "username, lastupdated) VALUES('" + m.getName() + "', " + m.getDuration()
+                        + ", '" + m.getFrequency() + "', " + m.getDose() + ", " + m.getTimestaken()
+                        + ", '" + m.getUsername() + "', '" + m.getLastupdated() + "')";
+        db.execSQL(sql);
+    }
+
+    /**
+     * Gets a specific medication (via mname) of a specific user (via username) from the local
+     * database.
+     *
+     * @param mname
+     * @param username
+     * @return
+     */
+    public Medication getMedication(String mname, String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = "SELECT * FROM `Medication` WHERE mname = '" + mname + "' AND username = '"
+                + username + "';";
+
+        Cursor c = null;
+        c = db.rawQuery(sql, null);
+
+        c.moveToFirst();
+
+        Medication medication = new Medication();
+        medication.setName(c.getString(0));
+        medication.setDuration(c.getInt(1));
+        medication.setFrequency(c.getString(2));
+        medication.setDose(c.getInt(3));
+        medication.setTimestaken(c.getInt(4));
+        medication.setUsername(c.getString(5));
+        medication.setLastupdated(Date.valueOf(c.getString(6)));
+
+        c.moveToNext();
+
+        c.close();
+
+        return medication;
     }
 
 }
