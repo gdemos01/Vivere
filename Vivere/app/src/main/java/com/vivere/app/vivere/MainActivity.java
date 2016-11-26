@@ -14,6 +14,11 @@ import com.vivere.app.vivere.db.DatabaseHelper;
 
 
 import com.vivere.app.vivere.adapters.myPagerAdapter;
+import com.vivere.app.vivere.models.Habit;
+import com.vivere.app.vivere.models.Patient;
+
+import java.sql.Date;
+import java.sql.Timestamp;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,6 +65,19 @@ public class MainActivity extends AppCompatActivity {
         //initialize the database
         mydb = new DatabaseHelper(this);
         SQLiteDatabase db = mydb.getWritableDatabase();
+
+        //TODO Test any method of the database here using also the toString() method
+//        Habit h = new Habit();
+//        h.setUsername("bob");
+//        h.setLastupdated(Date.valueOf("2016-03-10"));
+//        h.setDaystogo(4);
+//        h.setTimestamp(Timestamp.valueOf("2016-03-10 12:12:11"));
+//        h.setDaysdone(2);
+//        h.setType("break");
+//        h.setHname("alcoholism");
+//
+//        mydb.addHabit(h);
+//        System.out.println(mydb.getHabit("alcoholism", "bob"));
     }
 
 

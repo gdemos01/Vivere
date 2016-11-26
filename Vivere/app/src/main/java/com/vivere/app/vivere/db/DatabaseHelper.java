@@ -5,6 +5,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.vivere.app.vivere.models.*;
+
+import java.sql.Date;
+import java.sql.Timestamp;
+
 /**
  * Created by kyria_000 on 23/11/2016.
  */
@@ -163,4 +168,78 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + CREATE_PATIENT);
         onCreate(db);
     }
+
+    public void addPatient(Patient p) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql =
+                "INSERT or replace INTO Patient (username, password, name, surname, gender, "
+                        + "nationality, country, age) VALUES('" + p.getUsername()
+                        + "', '" + p.getPassword() + "', '" + p.getName() + "', '" + p.getSurname()
+                        + "', '" + p.getGender() + "', '" + p.getNationality() + "', '"
+                        + p.getCoutnry() + "', " + p.getAge() + ")";
+        db.execSQL(sql);
+    }
+
+    public Patient getPatient(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = "SELECT * FROM `Patient` WHERE username = '" + username + "';";
+
+        Cursor c = null;
+        c = db.rawQuery(sql, null);
+
+        c.moveToFirst();
+
+        Patient patient = new Patient();
+        patient.setUsername(c.getString(0));
+        patient.setPassword(c.getString(1));
+        patient.setName(c.getString(2));
+        patient.setSurname(c.getString(3));
+        patient.setGender(c.getString(4));
+        patient.setNationality(c.getString(5));
+        patient.setCoutnry(c.getString(6));
+        patient.setAge(c.getInt(7));
+        c.moveToNext();
+
+        c.close();
+
+        return patient;
+    }
+
+    public void addHabit(Habit h) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql =
+                "INSERT or replace INTO Habits (hname, type, daystogo, daysdone, timestamp,"
+                        + " lastupdated, username) VALUES('" + h.getHname() + "', '"
+                        + h.getType() + "', " + h.getDaystogo() + ", " + h.getDaysdone() + ", '"
+                        + h.getTimestamp() + "', '" + h.getLastupdated() + "', '" + h.getUsername()
+                        + "')";
+        db.execSQL(sql);
+    }
+
+    public Habit getHabit(String hname, String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = "SELECT * FROM `Habits` WHERE username = '" + username + "' AND hname = '"
+                + hname + "';";
+
+        Cursor c = null;
+        c = db.rawQuery(sql, null);
+
+        c.moveToFirst();
+
+        Habit habit = new Habit();
+        habit.setHname(c.getString(0));
+        habit.setType(c.getString(1));
+        habit.setDaystogo(c.getInt(2));
+        habit.setDaysdone(c.getInt(3));
+        habit.setTimestamp(Timestamp.valueOf(c.getString(4)));
+        habit.setLastupdated(Date.valueOf(c.getString(5)));
+        habit.setUsername(c.getString(6));
+
+        c.moveToNext();
+
+        c.close();
+
+        return habit;
+    }
+
 }
