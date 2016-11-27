@@ -6,4 +6,10 @@
     <string name="notification_replylabel">Notification Reply Laber</string>
     <string name="yes">YES</string>
     <string name="no">NO</string>
+
+    <string-array name="ms_types">
+        <item>Doctor</item>
+        <item>Chemist</item>
+    </string-array>
+
 </resources>

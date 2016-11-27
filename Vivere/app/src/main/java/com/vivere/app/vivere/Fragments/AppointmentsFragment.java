@@ -13,14 +13,16 @@ import android.widget.ListView;
 import com.vivere.app.vivere.R;
 import com.vivere.app.vivere.adapters.AppointmentsAdapter;
 import com.vivere.app.vivere.addAppointment;
+import com.vivere.app.vivere.db.DatabaseHelper;
 import com.vivere.app.vivere.models.Appointment;
+import com.vivere.app.vivere.services.RetrieveAppointments;
 import com.vivere.app.vivere.viewAppointment;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Created by User on 11/11/2016.
+ * Created by Giorgos on 11/11/2016.
  */
 
 public class AppointmentsFragment extends Fragment {
@@ -30,6 +32,7 @@ public class AppointmentsFragment extends Fragment {
     private ArrayList<Appointment> appointments= new ArrayList<>();
     private AppointmentsAdapter appAdapter;
     private FloatingActionButton appActionBtn;
+    private DatabaseHelper db;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,6 +51,14 @@ public class AppointmentsFragment extends Fragment {
         appAdapter = new AppointmentsAdapter(getActivity(),AppointmentsFragment.this,R.layout.appointments_item);
         appList = (ListView) view.findViewById(R.id.appointmentsListView);
         appList.setAdapter(appAdapter);
+        db = new DatabaseHelper(getContext());
+
+
+        /***
+         * We use a demo patient for the context of our project
+         */
+        RetrieveAppointments retrieveAppointments = new RetrieveAppointments();
+        retrieveAppointments.execute(db.getPatient("john").getUsername());
 
         /*Demo data - later retrieve from database*/
         Date d = new Date();

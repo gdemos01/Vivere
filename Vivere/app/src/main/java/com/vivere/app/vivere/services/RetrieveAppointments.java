@@ -26,7 +26,7 @@ public class RetrieveAppointments extends AsyncTask<String,Void,String>{
 
     @Override
     protected void onPreExecute(){
-        json_url = "http://35.160.125.84/rest/";
+        json_url = "http://35.160.125.84/rest/getPatientsApointments.php";
     }
 
     @Override
@@ -79,6 +79,6 @@ public class RetrieveAppointments extends AsyncTask<String,Void,String>{
 
     @Override
     protected void onPostExecute(String result){
-        //parse json here
+        System.out.println(result);
     }
 }

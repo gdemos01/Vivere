@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Our Demo patient
         Patient patient = new Patient();
+        patient.setUsername("john");
         patient.setName("John");
         patient.setSurname("Smith");
         patient.setAge(60);
