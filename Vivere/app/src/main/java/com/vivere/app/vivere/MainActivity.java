@@ -7,31 +7,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.RemoteInput;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.database.sqlite.SQLiteDatabase;
-
-
-import com.vivere.app.vivere.db.DatabaseHelper;
-import com.vivere.app.vivere.utils.*;
 
 import com.vivere.app.vivere.adapters.myPagerAdapter;
-import com.vivere.app.vivere.models.Exam;
-import com.vivere.app.vivere.models.Habit;
-import com.vivere.app.vivere.models.Illness;
-import com.vivere.app.vivere.models.MedicalSpecialist;
-import com.vivere.app.vivere.models.Medication;
+import com.vivere.app.vivere.db.DatabaseHelper;
 import com.vivere.app.vivere.models.Patient;
-
-import java.sql.Date;
-import java.sql.Timestamp;
-
-import static com.vivere.app.vivere.utils.VivereNotification.*;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -78,7 +63,18 @@ public class MainActivity extends AppCompatActivity {
 
         //initialize the database
         mydb = new DatabaseHelper(this);
-        SQLiteDatabase db = mydb.getWritableDatabase();
+
+        // Our Demo patient
+        Patient patient = new Patient();
+        patient.setName("John");
+        patient.setSurname("Smith");
+        patient.setAge(60);
+        patient.setCoutnry("Cyprus");
+        patient.setGender("M");
+        patient.setNationality("Greek");
+        patient.setPassword("1234");
+        mydb.addPatient(patient);
+
 
         //TODO Test any method of the database here using also the toString() method
 //        MedicalSpecialist ms = new MedicalSpecialist();

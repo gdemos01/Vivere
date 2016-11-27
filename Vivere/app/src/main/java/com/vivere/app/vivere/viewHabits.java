@@ -38,8 +38,9 @@ public class viewHabits extends AppCompatActivity {
         int dd = i.getExtras().getInt("daysDone");
         int per = (int)((float)dtg/66*100);
         Timestamp t = new Timestamp(i.getExtras().getLong("date"));
+        long daysToadd = ((long)dtg * 24 * 3600 * 1000+t.getTime());
         Date d = new Date();
-        d.setTime(t.getTime());
+        d.setTime(daysToadd);
         String[] parts = d.toString().split(" ");
         String da = parts[2] +" "+ parts[1];
 
