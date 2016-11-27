@@ -2,4 +2,8 @@
     <string name="app_name">Vivere</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="notification_label">Notification Label</string>
+    <string name="notification_replylabel">Notification Reply Laber</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
 </resources>
