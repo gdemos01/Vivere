@@ -36,6 +36,12 @@ public class Habit {
         this.username = username;
     }
 
+
+    public int calculatePercentage(){
+        int per = (int)((float)daysdone/66.0*100);
+        return per;
+    }
+
     public String getHname() {
         return hname;
     }
