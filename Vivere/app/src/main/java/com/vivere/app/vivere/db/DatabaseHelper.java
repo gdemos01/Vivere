@@ -105,7 +105,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_MEDICATION = "CREATE TABLE " + TB_MEDICATION + " (" + COL_MNAME + " TEXT PRIMARY KEY NOT NULL, "
             + COL_DURATION + " INT NOT NULL, " + COL_FREQUENCY + " TEXT NOT NULL ," + COL_DOSE + " TEXT NOT NULL, " + COL_TIMESTAKEN
-            + " INT NOT NULL, "  + COL_USERNAME + " TEXT NOT NULL ," + COL_LASTUPDATED + " DATE NOT NULL " + ")";
+            + " INT NOT NULL, " + COL_USERNAME + " TEXT NOT NULL ," + COL_LASTUPDATED + " DATE NOT NULL " + ")";
 
     private static final String CREATE_EXAM = "CREATE TABLE " + TB_EXAM + " (" + COL_ID + " INT PRIMARY KEY NOT NULL, "
             + COL_TYPE + " TEXT NOT NULL, " + COL_RESULTS + " TEXT NOT NULL ," + COL_TIMESTAMP + " DATE NOT NULL, " + COL_DOCTORSADVICE
@@ -353,6 +353,81 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         c.close();
 
         return medication;
+    }
+
+    public void addExam(Exam m) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql =
+                "INSERT or replace INTO Exam (id, type, results, timestamp, doctorsadvice, "
+                        + "username, msusername) VALUES(" + m.getId() + ", '" + m.getType()
+                        + "', '" + m.getResults() + "', '" + m.getTimestamp() + "', '"
+                        + m.getAdvice() + "', '" + m.getUsername() + "', '" + m.getMsusername()
+                        + "')";
+        db.execSQL(sql);
+    }
+
+    public Exam getExam(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = "SELECT * FROM `Exam` WHERE id = '" + id + "';";
+
+        Cursor c = null;
+        c = db.rawQuery(sql, null);
+
+        c.moveToFirst();
+
+        Exam exam = new Exam();
+        exam.setId(c.getInt(0));
+        exam.setType(c.getString(1));
+        exam.setResults(c.getString(2));
+        exam.setTimestamp(Timestamp.valueOf(c.getString(3)));
+        exam.setAdvice(c.getString(4));
+        exam.setUsername(c.getString(5));
+        exam.setMsusername(c.getString(6));
+
+
+        c.moveToNext();
+
+        c.close();
+
+        return exam;
+    }
+
+    public void addMedicalSpecialist(MedicalSpecialist m) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql =
+                "INSERT or replace INTO MedicalSpecialist (msusername, password, name, surname, "
+                        + "speciality, address, telephone, type) VALUES('" + m.getMsusername() + "', '"
+                        + m.getPassword() + "', '" + m.getName() + "', '" + m.getSurname() + "', '"
+                        + m.getSpeciality() + "', '" + m.getAddress() + "', " + m.getTelephone()
+                        + ", '" + m.getType() + "')";
+        db.execSQL(sql);
+    }
+
+    public MedicalSpecialist getMedicalSpecialist(String msusername) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = "SELECT * FROM `MedicalSpecialist` WHERE msusername = '" + msusername + "';";
+
+        Cursor c = null;
+        c = db.rawQuery(sql, null);
+
+        c.moveToFirst();
+
+        MedicalSpecialist medicalSpecialist = new MedicalSpecialist();
+        medicalSpecialist.setMsusername(c.getString(0));
+        medicalSpecialist.setPassword(c.getString(1));
+        medicalSpecialist.setName(c.getString(2));
+        medicalSpecialist.setSurname(c.getString(3));
+        medicalSpecialist.setSpeciality(c.getString(4));
+        medicalSpecialist.setAddress(c.getString(5));
+        medicalSpecialist.setTelephone(c.getInt(6));
+        medicalSpecialist.setType(c.getString(7));
+
+
+        c.moveToNext();
+
+        c.close();
+
+        return medicalSpecialist;
     }
 
 }

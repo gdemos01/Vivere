@@ -14,8 +14,10 @@ import com.vivere.app.vivere.db.DatabaseHelper;
 
 
 import com.vivere.app.vivere.adapters.myPagerAdapter;
+import com.vivere.app.vivere.models.Exam;
 import com.vivere.app.vivere.models.Habit;
 import com.vivere.app.vivere.models.Illness;
+import com.vivere.app.vivere.models.MedicalSpecialist;
 import com.vivere.app.vivere.models.Medication;
 import com.vivere.app.vivere.models.Patient;
 
@@ -69,30 +71,33 @@ public class MainActivity extends AppCompatActivity {
         SQLiteDatabase db = mydb.getWritableDatabase();
 
         //TODO Test any method of the database here using also the toString() method
-        Medication m = new Medication();
-        m.setLastupdated(Date.valueOf("2016-08-14"));
+        MedicalSpecialist ms = new MedicalSpecialist();
+        ms.setType("Chemist");
+        ms.setTelephone(99999915);
+        ms.setAddress("Adamou Christofi, 15, Aglantzia, 2109 Nicosia");
+        ms.setSpeciality("Chemist");
+        ms.setSurname("Smith");
+        ms.setName("Jack");
+        ms.setPassword("hittheroadjack");
+        ms.setMsusername("jack");
+
+        mydb.addMedicalSpecialist(ms);
+        System.out.println(mydb.getMedicalSpecialist("jack"));
+
+        Exam m = new Exam();
+        m.setMsusername("jack");
         m.setUsername("bob");
-        m.setDuration(7);
-        m.setDose(2);
-        m.setFrequency("1W");
-        m.setTimestaken(0);
-        m.setName("Panadol");
+        m.setType("Analysis");
+        m.setAdvice("You won''t die yet.");
+        m.setTimestamp(Timestamp.valueOf("2016-09-09 10:09:34"));
+        m.setId(123);
+        m.setResults("The results are here.");
 
-        mydb.addMedication(m);
-        System.out.println(mydb.getMedication("Panadol", "bob"));
+        mydb.addExam(m);
+        System.out.println(mydb.getExam(123));
 
 
-//        Habit h = new Habit();
-//        h.setUsername("bob");
-//        h.setLastupdated(Date.valueOf("2016-03-10"));
-//        h.setDaystogo(4);
-//        h.setTimestamp(Timestamp.valueOf("2016-03-10 12:12:11"));
-//        h.setDaysdone(2);
-//        h.setType("break");
-//        h.setHname("alcoholism");
-//
-//        mydb.addHabit(h);
-//        System.out.println(mydb.getHabit("alcoholism", "bob"));
+
     }
 
 
