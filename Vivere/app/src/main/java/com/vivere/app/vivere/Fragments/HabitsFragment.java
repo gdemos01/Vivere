@@ -81,7 +81,7 @@ public class HabitsFragment extends Fragment {
         intent.putExtra("habitProg",hab.calculatePercentage());
         intent.putExtra("daysDone",hab.getDaysdone());
         intent.putExtra("daysToGo",hab.getDaystogo());
-        intent.putExtra("date",hab.getTimestamp());
+        intent.putExtra("date",hab.getTimestamp().getTime());
         startActivity(intent);
     }
 
