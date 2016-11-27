@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+                showNotificationWReply("Habit title","The question goes here?");
             }
 
             @Override
@@ -108,14 +109,12 @@ public class MainActivity extends AppCompatActivity {
         //addNotification();
     }
 
-    public void addNotificationWReply() {
+    public void showNotificationWReply(String title, String content) {
         //Create Notification
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(this);
-        builder.setSmallIcon(R.drawable.exams_flaticon);
-        builder.setContentTitle("Notifications Example");
-        builder.setContentText("This is a test notification");
 
+        //For YES reply button
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
@@ -123,26 +122,39 @@ public class MainActivity extends AppCompatActivity {
 
         // Key for the string that's delivered in the action's intent.
         final String KEY_TEXT_REPLY = "key_text_reply";
-        String replyLabel = getResources().getString(R.string.app_name);
+        String replyLabel = getResources().getString(R.string.notification_replylabel);
         android.app.RemoteInput remoteInput = new android.app.RemoteInput.Builder(KEY_TEXT_REPLY)
                 .setLabel(replyLabel)
                 .build();
 
         // Create the reply action and add the remote input.
         Notification.Action action =
-                new Notification.Action.Builder(R.drawable.ic_account_circle_black_24dp,
-                        getString(R.string.notification_label), contentIntent)
+                new Notification.Action.Builder(R.drawable.ic_thumb_up_black_24dp,
+                        getString(R.string.yes), contentIntent)
+                        .addRemoteInput(remoteInput)
+                        .build();
+
+        //For NO reply button
+        Intent notificationIntent2 = new Intent(this, MainActivity.class);
+        PendingIntent contentIntent2 = PendingIntent.getActivity(this, 0, notificationIntent2,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIntent2);
+
+        // Create the reply action and add the remote input.
+        Notification.Action action2 =
+                new Notification.Action.Builder(R.drawable.ic_thumb_down_black_24dp,
+                        getString(R.string.no), contentIntent2)
                         .addRemoteInput(remoteInput)
                         .build();
 
         // Build the notification and add the action.
-        // Build the notification and add the action.
         Notification newMessageNotification =
                 new Notification.Builder(MainActivity.this)
-                        .setSmallIcon(R.drawable.ic_account_circle_black_24dp)
-                        .setContentTitle("TITLE")
-                        .setContentText("Content Text")
+                        .setSmallIcon(R.drawable.vivere_logo_bw2)
+                        .setContentTitle(title)
+                        .setContentText(content)
                         .addAction(action)
+                        .addAction(action2)
                         .build();
 
         // Add as notification
@@ -151,12 +163,12 @@ public class MainActivity extends AppCompatActivity {
         manager.notify(22, newMessageNotification);
     }
 
-    public void addNotification() {
+    public void showNotification(String title, String content) {
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(this);
-        builder.setSmallIcon(R.drawable.exams_flaticon);
-        builder.setContentTitle("Notifications Example");
-        builder.setContentText("This is a test notification");
+        builder.setSmallIcon(R.drawable.vivere_logo_bw2);
+        builder.setContentTitle(title);
+        builder.setContentText(content);
 
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
