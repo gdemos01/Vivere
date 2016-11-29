@@ -76,8 +76,23 @@ public class HistoryAdapter extends ArrayAdapter {
                 //Delete the exam
             }
         });
-
+        row.setOnClickListener(new HistoryAdapter.OnItemClickListener(position));
         return row;
+
+    }
+
+    /********* Called when Item click in ListView ************/
+    private class OnItemClickListener  implements View.OnClickListener {
+        private int mPosition;
+
+        OnItemClickListener(int position){
+            mPosition = position;
+        }
+
+        @Override
+        public void onClick(View arg0) {
+            histFragment.onItemClick(mPosition);
+        }
     }
 
     public void clearData(){

@@ -11,6 +11,7 @@ import android.widget.ListView;
 import com.vivere.app.vivere.R;
 import com.vivere.app.vivere.adapters.HistoryAdapter;
 import com.vivere.app.vivere.models.Advice;
+import com.vivere.app.vivere.viewAdvice;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -66,10 +67,9 @@ public class HistoryFragment extends Fragment {
     }
 
     public void onItemClick(int pos){
-        // Do something on item click
-        //Intent intent = new Intent(getActivity(), viewAppointment.class);
+        Intent intent = new Intent(getActivity(), viewAdvice.class);
         //intent.putExtra("video_id",videos.get(mPosition).getId());
-        //startActivity(intent);
+        startActivity(intent);
     }
 
     public void setListData(Advice app){

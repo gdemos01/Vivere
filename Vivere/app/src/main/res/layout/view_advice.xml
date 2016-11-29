@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:padding="10dp"
+        android:gravity="center_vertical"
+        android:textSize="18dp"
+        android:text="Type"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:padding="10dp"
+        android:textSize="18dp"
+        android:gravity="center"
+        android:text="Prostate Exame"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:padding="10dp"
+        android:textSize="18dp"
+        android:gravity="center_vertical"
+        android:text="Medical Specialist"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:padding="10dp"
+        android:textSize="18dp"
+        android:gravity="center"
+        android:text="Dr Strange"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:padding="10dp"
+        android:gravity="center_vertical"
+        android:textSize="18dp"
+        android:text="Date"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:padding="10dp"
+        android:textSize="18dp"
+        android:gravity="center"
+        android:text="26 - 11 - 94"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:padding="10dp"
+        android:gravity="center_vertical"
+        android:textSize="18dp"
+        android:text="Results"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="3"
+        android:padding="10dp"
+        android:textSize="18dp"
+        android:gravity="center"
+        android:text="Just fine"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:padding="10dp"
+        android:gravity="center_vertical"
+        android:textSize="18dp"
+        android:text="Advice"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="3"
+        android:padding="10dp"
+        android:textSize="18dp"
+        android:gravity="center"
+        android:text="Drink more water"/>
+
+</LinearLayout>

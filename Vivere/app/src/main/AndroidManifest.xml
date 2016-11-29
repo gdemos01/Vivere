@@ -54,6 +54,12 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+        <activity
+            android:name=".viewAdvice"
+            android:label="View Advice"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
 
     </application>
 
