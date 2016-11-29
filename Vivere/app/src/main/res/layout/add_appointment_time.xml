@@ -3,6 +3,16 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:background="@color/colorPrimary"
+        android:layout_weight="1"
+        android:padding="10dp"
+        android:gravity="center_vertical"
+        android:textSize="18dp"
+        android:text="Select Available Time"/>
+
     <ListView
         android:id="@+id/hoursList"
         android:layout_width="match_parent"
