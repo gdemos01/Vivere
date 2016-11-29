@@ -16,7 +16,15 @@ import android.view.MenuItem;
 
 import com.vivere.app.vivere.adapters.myPagerAdapter;
 import com.vivere.app.vivere.db.DatabaseHelper;
+import com.vivere.app.vivere.models.Appointment;
+import com.vivere.app.vivere.models.Inheritance;
 import com.vivere.app.vivere.models.Patient;
+
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-                showNotificationWReply("Habit title","The question goes here?");
+                showNotificationWReply("Habit title", "The question goes here?");
             }
 
             @Override
@@ -78,6 +86,16 @@ public class MainActivity extends AppCompatActivity {
 
 
         //TODO Test any method of the database here using also the toString() method
+
+//        Inheritance ms = new Inheritance();
+//
+//        ms.setIname("prostate");
+//        ms.setUsername("bob");
+//
+//        mydb.addInheritance(ms);
+//        System.out.println(mydb.getInheritance("prostate", "bob"));
+        //System.out.println(mydb.getAppointment("bob", "jack", Timestamp.valueOf("2016-11-29 23:02:14.297")));
+
 //        MedicalSpecialist ms = new MedicalSpecialist();
 //        ms.setType("Chemist");
 //        ms.setTelephone(99999915);

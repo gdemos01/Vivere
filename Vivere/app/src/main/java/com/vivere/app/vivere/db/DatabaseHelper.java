@@ -355,6 +355,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return medication;
     }
 
+    /**
+     * Adds a new exam to the local database.
+     *
+     * @param m
+     */
     public void addExam(Exam m) {
         SQLiteDatabase db = this.getWritableDatabase();
         String sql =
@@ -366,6 +371,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(sql);
     }
 
+    /**
+     * Gets a specific exam by given id from the local database.
+     *
+     * @param id
+     * @return
+     */
     public Exam getExam(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         String sql = "SELECT * FROM `Exam` WHERE id = '" + id + "';";
@@ -384,7 +395,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         exam.setUsername(c.getString(5));
         exam.setMsusername(c.getString(6));
 
-
         c.moveToNext();
 
         c.close();
@@ -392,6 +402,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return exam;
     }
 
+    /**
+     * Adds a new Medical Specialist to the local database.
+     *
+     * @param m
+     */
     public void addMedicalSpecialist(MedicalSpecialist m) {
         SQLiteDatabase db = this.getWritableDatabase();
         String sql =
@@ -403,6 +418,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(sql);
     }
 
+    /**
+     * Gets a specific Medical Specialist (via msusername) from the local database.
+     *
+     * @param msusername
+     * @return
+     */
     public MedicalSpecialist getMedicalSpecialist(String msusername) {
         SQLiteDatabase db = this.getReadableDatabase();
         String sql = "SELECT * FROM `MedicalSpecialist` WHERE msusername = '" + msusername + "';";
@@ -422,7 +443,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         medicalSpecialist.setTelephone(c.getInt(6));
         medicalSpecialist.setType(c.getString(7));
 
-
         c.moveToNext();
 
         c.close();
@@ -430,6 +450,94 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return medicalSpecialist;
     }
 
+    /**
+     * Adds a new appointment to the local database.
+     *
+     * @param a
+     */
+    public void addAppointment(Appointment a) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql =
+                "INSERT or replace INTO Appointment (description, timestamp, username, msusername) "
+                        + "VALUES('" + a.getDescription() + "', '"
+                        + a.getDate() + "', '" + a.getPatient() + "', '" + a.getDoctor() + "')";
+        db.execSQL(sql);
+    }
 
+    /**
+     * Gets a specific appointment (by given username, msusername and timestamp) from the local
+     * database.
+     *
+     * @param username
+     * @param msusername
+     * @param timestamp
+     * @return
+     */
+    public Appointment getAppointment(String username, String msusername, Timestamp timestamp) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = "SELECT * FROM `Appointment` WHERE username = '" + username
+                + "' AND msusername = '" + msusername + "' AND timestamp = '" + timestamp + "';";
+
+        Cursor c = null;
+        c = db.rawQuery(sql, null);
+
+        c.moveToFirst();
+
+        Appointment appointment = new Appointment();
+        appointment.setPatient(c.getString(0));
+        appointment.setDoctor(c.getString(1));
+        appointment.setDate(Timestamp.valueOf(c.getString(2)));
+        appointment.setDescription(c.getString(3));
+
+        c.moveToNext();
+
+        c.close();
+
+        return appointment;
+    }
+
+    /**
+     * Adds a new inheritance of a specific patient to the local database.
+     *
+     * @param n
+     */
+    public void addInheritance(Inheritance n) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql =
+                "INSERT or replace INTO Inheritance (iname, username) "
+                        + "VALUES('" + n.getIname() + "', '" + n.getUsername() + "')";
+        db.execSQL(sql);
+    }
+
+    /**
+     * Gets a specific inheritance (by given iname and username) of a selected patient from the
+     * local database.
+     *
+     * @param iname
+     * @param username
+     * @return
+     */
+    public Inheritance getInheritance(String iname, String username) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = "SELECT * FROM `Inheritance` WHERE username = '" + username
+                + "' AND iname = '" + iname + "';";
+
+        Cursor c = null;
+        c = db.rawQuery(sql, null);
+
+        c.moveToFirst();
+
+        Inheritance inheritance = new Inheritance();
+        inheritance.setUsername(c.getString(0));
+        inheritance.setIname(c.getString(1));
+
+        c.moveToNext();
+
+        c.close();
+
+        return inheritance;
+    }
 
 }
