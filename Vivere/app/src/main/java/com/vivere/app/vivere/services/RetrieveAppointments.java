@@ -2,6 +2,10 @@ package com.vivere.app.vivere.services;
 
 import android.os.AsyncTask;
 
+import com.vivere.app.vivere.Fragments.AppointmentsFragment;
+import com.vivere.app.vivere.MainActivity;
+import com.vivere.app.vivere.db.DatabaseHelper;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -23,10 +27,12 @@ public class RetrieveAppointments extends AsyncTask<String,Void,String>{
 
     String JSON_STRING;
     String json_url;
+    DatabaseHelper dbH;
 
     @Override
     protected void onPreExecute(){
         json_url = "http://35.160.125.84/rest/getPatientsApointments.php";
+        dbH = MainActivity.mydb;
     }
 
     @Override
