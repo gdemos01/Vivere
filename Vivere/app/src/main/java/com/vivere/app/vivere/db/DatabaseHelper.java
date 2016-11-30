@@ -267,6 +267,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return habit;
     }
 
+    /***
+     * This function returns all the habits stored in the local database.
+     *
+     * @return
+     */
+    public ArrayList<Habit> getHabits() {
+
+        ArrayList<Habit> habits = new ArrayList<Habit>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = "SELECT * FROM `Habits`;";
+
+        Cursor c = null;
+        c = db.rawQuery(sql, null);
+
+        c.moveToFirst();
+
+        while (!c.isAfterLast()) {
+            Habit habit = new Habit();
+            habit.setHname(c.getString(0));
+            habit.setType(c.getString(1));
+            habit.setDaystogo(c.getInt(2));
+            habit.setDaysdone(c.getInt(3));
+            habit.setTimestamp(Timestamp.valueOf(c.getString(4)));
+            habit.setLastupdated(Date.valueOf(c.getString(5)));
+            habit.setUsername(c.getString(6));
+            habits.add(habit);
+            c.moveToNext();
+        }
+        c.close();
+
+        return habits;
+    }
+
     /**
      * Adds a new illness to the local database.
      *
@@ -305,6 +338,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         c.close();
 
         return illness;
+    }
+
+    /***
+     * This function returns all the illnesses stored in the local database.
+     *
+     * @return
+     */
+    public ArrayList<Illness> getIlnesses() {
+
+        ArrayList<Illness> illnesses = new ArrayList<Illness>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = "SELECT * FROM `Illnesses`;";
+
+        Cursor c = null;
+        c = db.rawQuery(sql, null);
+
+        c.moveToFirst();
+
+        while (!c.isAfterLast()) {
+            Illness illness = new Illness();
+            illness.setIname(c.getString(0));
+            illness.setFactor(c.getString(1));
+            illness.setValue(c.getString(2));
+            illnesses.add(illness);
+            c.moveToNext();
+        }
+        c.close();
+
+        return illnesses;
     }
 
     /**
@@ -356,6 +418,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return medication;
     }
 
+    /***
+     * This function returns all the medication stored in the local database.
+     *
+     * @return
+     */
+    public ArrayList<Medication> getMediations() {
+
+        ArrayList<Medication> medications = new ArrayList<Medication>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = "SELECT * FROM `Medication`;";
+
+        Cursor c = null;
+        c = db.rawQuery(sql, null);
+
+        c.moveToFirst();
+
+        while (!c.isAfterLast()) {
+            Medication medication = new Medication();
+            medication.setName(c.getString(0));
+            medication.setDuration(c.getInt(1));
+            medication.setFrequency(c.getString(2));
+            medication.setDose(c.getInt(3));
+            medication.setTimestaken(c.getInt(4));
+            medication.setUsername(c.getString(5));
+            medication.setLastupdated(Date.valueOf(c.getString(6)));
+            medications.add(medication);
+            c.moveToNext();
+        }
+        c.close();
+
+        return medications;
+    }
+
     /**
      * Adds a new exam to the local database.
      *
@@ -403,6 +498,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return exam;
     }
 
+    /***
+     * This function returns all the exams stored in the local database.
+     *
+     * @return
+     */
+    public ArrayList<Exam> getExams() {
+
+        ArrayList<Exam> exams = new ArrayList<Exam>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = "SELECT * FROM `Exam`;";
+
+        Cursor c = null;
+        c = db.rawQuery(sql, null);
+
+        c.moveToFirst();
+
+        while (!c.isAfterLast()) {
+            Exam exam = new Exam();
+            exam.setId(c.getInt(0));
+            exam.setType(c.getString(1));
+            exam.setResults(c.getString(2));
+            exam.setTimestamp(Timestamp.valueOf(c.getString(3)));
+            exam.setAdvice(c.getString(4));
+            exam.setUsername(c.getString(5));
+            exam.setMsusername(c.getString(6));
+            exams.add(exam);
+            c.moveToNext();
+        }
+        c.close();
+
+        return exams;
+    }
+
+
     /**
      * Adds a new Medical Specialist to the local database.
      *
@@ -449,6 +578,76 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         c.close();
 
         return medicalSpecialist;
+    }
+
+    /***
+     * This function returns all the medical specialist of a specific speciality stored in the
+     * local database.
+     *
+     * @param speciality
+     * @return
+     */
+    public ArrayList<MedicalSpecialist> getMedicalSpecialists(String speciality) {
+
+        ArrayList<MedicalSpecialist> medicalSpecialists = new ArrayList<MedicalSpecialist>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = "SELECT * FROM `MedicalSpecialist` WHERE speciality = '" + speciality + "';";
+
+        Cursor c = null;
+        c = db.rawQuery(sql, null);
+
+        c.moveToFirst();
+
+        while (!c.isAfterLast()) {
+            MedicalSpecialist medicalSpecialist = new MedicalSpecialist();
+            medicalSpecialist.setMsusername(c.getString(0));
+            medicalSpecialist.setPassword(c.getString(1));
+            medicalSpecialist.setName(c.getString(2));
+            medicalSpecialist.setSurname(c.getString(3));
+            medicalSpecialist.setSpeciality(c.getString(4));
+            medicalSpecialist.setAddress(c.getString(5));
+            medicalSpecialist.setTelephone(c.getInt(6));
+            medicalSpecialist.setType(c.getString(7));
+            medicalSpecialists.add(medicalSpecialist);
+            c.moveToNext();
+        }
+        c.close();
+
+        return medicalSpecialists;
+    }
+
+    /***
+     * This function returns all the medical specialist stored in the local database.
+     *
+     * @return
+     */
+    public ArrayList<MedicalSpecialist> getMedicalSpecialists() {
+
+        ArrayList<MedicalSpecialist> medicalSpecialists = new ArrayList<MedicalSpecialist>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = "SELECT * FROM `MedicalSpecialist`;";
+
+        Cursor c = null;
+        c = db.rawQuery(sql, null);
+
+        c.moveToFirst();
+
+        while (!c.isAfterLast()) {
+            MedicalSpecialist medicalSpecialist = new MedicalSpecialist();
+            medicalSpecialist.setMsusername(c.getString(0));
+            medicalSpecialist.setPassword(c.getString(1));
+            medicalSpecialist.setName(c.getString(2));
+            medicalSpecialist.setSurname(c.getString(3));
+            medicalSpecialist.setSpeciality(c.getString(4));
+            medicalSpecialist.setAddress(c.getString(5));
+            medicalSpecialist.setTelephone(c.getInt(6));
+            medicalSpecialist.setType(c.getString(7));
+            medicalSpecialists.add(medicalSpecialist);
+            c.moveToNext();
+        }
+        c.close();
+
+        return medicalSpecialists;
     }
 
     /**
@@ -501,6 +700,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /***
      * This function returns all the appointments/history
      * of a specific user
+     *
      * @param username
      * @return
      */
@@ -570,6 +770,148 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         c.close();
 
         return inheritance;
+    }
+
+    /***
+     * DELETE METHODS
+     **/
+
+    /**
+     * Deletes a specific patient from the local database.
+     *
+     * @param username
+     */
+    public void deletePatient(String username) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "DELETE FROM `Patient` WHERE username = '" + username + "';";
+
+        db.execSQL(sql);
+    }
+
+    /**
+     * Deletes a specific habit from the local database.
+     *
+     * @param hname
+     */
+    public void deleteHabit(String hname) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "DELETE FROM `Habits` WHERE hname = '" + hname + "';";
+
+        db.execSQL(sql);
+    }
+
+    /**
+     * Deletes a specific illness from the local database.
+     *
+     * @param iname
+     */
+    public void deleteIllness(String iname) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "DELETE FROM `Illnesses` WHERE iname = '" + iname + "';";
+
+        db.execSQL(sql);
+    }
+
+    /**
+     * Deletes a specific medication from the local database.
+     *
+     * @param mname
+     */
+    public void deleteMedication(String mname) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "DELETE FROM `Medication` WHERE mname = '" + mname + "';";
+
+        db.execSQL(sql);
+    }
+
+    /**
+     * Deletes a specific exam from the local database.
+     *
+     * @param id
+     */
+    public void deleteExam(String id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "DELETE FROM `Exam` WHERE id = '" + id + "';";
+
+        db.execSQL(sql);
+    }
+
+    /**
+     * Deletes a specific exam by given msusername and timestamp from the local database.
+     *
+     * @param msusername
+     * @param timestamp
+     */
+    public void deleteExam(String msusername, String timestamp) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "DELETE FROM `Exam` WHERE msusername = '" + msusername + "' AND timestamp = '"
+                + timestamp + "';";
+
+        db.execSQL(sql);
+    }
+
+    /**
+     * Deletes a specific medical specialist from the local database.
+     *
+     * @param msusername
+     */
+    public void deleteMedicalSpecialist(String msusername) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "DELETE FROM `MedicalSpecialist` WHERE msusername = '" + msusername + "';";
+
+        db.execSQL(sql);
+    }
+
+    /**
+     * Deletes a specific inheritance from the local database.
+     *
+     * @param iname
+     */
+    public void deleteInheritance(String iname) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "DELETE FROM `Inheritance` WHERE iname = '" + iname + "';";
+
+        db.execSQL(sql);
+    }
+
+    /**
+     * Deletes a specific appointment from the local database.
+     *
+     * @param username
+     * @param msusername
+     * @param timestamp
+     */
+    public void deleteAppointment(String username, String msusername, String timestamp) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "DELETE FROM `Appointment` WHERE username = '" + username
+                + " AND msusername = '" + msusername + "' AND timestamp = '" + timestamp + "';";
+
+        db.execSQL(sql);
+    }
+
+    /**
+     * Totally erases the data from the local database.
+     */
+    public void deleteAllData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String sql = "DELETE FROM `Habits`;";
+        db.execSQL(sql);
+        sql = "DELETE FROM `Illnesses`;";
+        db.execSQL(sql);
+        sql = "DELETE FROM `Medication`";
+        db.execSQL(sql);
+        sql = "DELETE FROM `Exam`;";
+        db.execSQL(sql);
+        sql = "DELETE FROM `Inheritance`;";
+        db.execSQL(sql);
+        sql = "DELETE FROM `Appointment`;";
+        db.execSQL(sql);
+        sql = "DELETE FROM `MedicalSpecialist`;";
+        db.execSQL(sql);
+        sql = "DELETE FROM `Patient`;";
+        db.execSQL(sql);
+
     }
 
 }
