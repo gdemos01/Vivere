@@ -54,19 +54,6 @@ public class addAppointment extends AppCompatActivity {
                     }
                 });
 
-                /*
-                DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
-                datePicker.init(2016, 12, 1, new DatePicker.OnDateChangedListener() {
-                    @Override
-                    public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
-                        int day = datePicker.getDayOfMonth();
-                        int month = datePicker.getMonth() + 1;
-                        int year = datePicker.getYear();
-                        System.out.println("haha "+day+" "+month+" "+year);
-                    }
-                });
-                */
-
             }
 
             @Override

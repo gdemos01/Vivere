@@ -15,6 +15,7 @@ import com.vivere.app.vivere.adapters.AppointmentsAdapter;
 import com.vivere.app.vivere.addAppointment;
 import com.vivere.app.vivere.db.DatabaseHelper;
 import com.vivere.app.vivere.models.Appointment;
+import com.vivere.app.vivere.models.MedicalSpecialist;
 import com.vivere.app.vivere.services.RetrieveAppointments;
 import com.vivere.app.vivere.viewAppointment;
 
@@ -54,20 +55,34 @@ public class AppointmentsFragment extends Fragment {
         db = new DatabaseHelper(getContext());
 
 
-        /***
-         * We use a demo patient for the context of our project
+        /**
+         * This is the creation of appointments.
+         * It should be moved to a splash screen or something
          */
         RetrieveAppointments retrieveAppointments = new RetrieveAppointments();
         retrieveAppointments.execute(db.getPatient("john").getUsername());
 
-        /*Demo data - later retrieve from database*/
-        Date d = new Date();
-        Appointment app = new Appointment("Dr Strange","Giorgos",d,"Hurts");
-        appointments.add(app);
-        setListData(app);
-        Appointment app2 = new Appointment("Dr Who","Kakos",d,"Hurts");
-        appointments.add(app2);
-        setListData(app2);
+        /**
+         * Real appointments now
+         */
+        appointments = db.getAppointments("john");
+
+        int count =0;
+        while(count<appointments.size()){
+            Appointment app = appointments.get(count);
+            MedicalSpecialist ms = new MedicalSpecialist();
+                    //db.getMedicalSpecialist(app.getDoctor());
+
+            //change to ms == null later
+            if(ms.getMsusername()==null){
+                //Retrieve
+                setListData(app);
+            }else{
+                app.setDoctorName(ms.getName());
+                setListData(app);
+            }
+            count++;
+        }
 
         appActionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +104,9 @@ public class AppointmentsFragment extends Fragment {
     public void onItemClick(int pos){
         // Do something on item click
         Intent intent = new Intent(getActivity(), viewAppointment.class);
-        //intent.putExtra("video_id",videos.get(mPosition).getId());
+        intent.putExtra("Doctor",appointments.get(pos).getDoctorName());
+        intent.putExtra("date",appointments.get(pos).getDate().toString());
+        intent.putExtra("desc",appointments.get(pos).getDescription());
         startActivity(intent);
     }
 

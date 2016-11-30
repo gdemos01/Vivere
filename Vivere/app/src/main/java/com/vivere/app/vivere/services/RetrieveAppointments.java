@@ -5,6 +5,11 @@ import android.os.AsyncTask;
 import com.vivere.app.vivere.Fragments.AppointmentsFragment;
 import com.vivere.app.vivere.MainActivity;
 import com.vivere.app.vivere.db.DatabaseHelper;
+import com.vivere.app.vivere.models.Appointment;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -17,6 +22,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.sql.Timestamp;
 
 /**
  * Created by georg on 14-Nov-16.
@@ -85,6 +91,52 @@ public class RetrieveAppointments extends AsyncTask<String,Void,String>{
 
     @Override
     protected void onPostExecute(String result){
-        System.out.println(result);
+        JSONObject jsonObject;
+        JSONArray jsonArray;
+        if(result==null){
+            System.out.println("No JSON returned");
+        }else{
+            try {
+                jsonObject = new JSONObject(result);
+                jsonArray = jsonObject.getJSONArray("server_response");
+                int count =0;
+                while(count<jsonArray.length()){
+                    Appointment appointment = new Appointment();
+                    JSONObject jo = jsonArray.getJSONObject(count);
+                    appointment.setPatient(jo.getString("pusername"));
+                    appointment.setDoctor(jo.getString("msusername"));
+                    appointment.setDate(Timestamp.valueOf(jo.getString("date")));
+                    appointment.setDescription(jo.getString("description"));
+                    dbH.addAppointment(appointment);
+                    count++;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        /*
+        JSONObject jsonObject;
+        JSONArray jsonArray;
+        if(json_string==null){
+           // Toast.makeText(getApplicationContext(),"No jsason",Toast.LENGTH_SHORT).show();
+        }else{
+            try {
+                    JSONObject JO = jsonArray.getJSONObject(count);
+                    channel_id = JO.getString("channel_id");
+                    Rank = JO.getInt("Rank");
+                    Popular p = new Popular();
+                    p.setChannel_id(channel_id);
+                    p.setRank(Rank);
+                    count++;
+                    InitialActivity.tempDatabase.addPopularChannel(p);
+                    retrieveChannel(channel_id);
+                    // for(int za = 0; za<10;za++) System.out.println("ADDING CHANNEL NO -> "+count);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+         */
     }
 }

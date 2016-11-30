@@ -9,6 +9,7 @@ import com.vivere.app.vivere.models.*;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 /**
  * Created by kyria_000 on 23/11/2016.
@@ -495,6 +496,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         c.close();
 
         return appointment;
+    }
+
+    /***
+     * This function returns all the appointments/history
+     * of a specific user
+     * @param username
+     * @return
+     */
+    public ArrayList<Appointment> getAppointments(String username) {
+
+        ArrayList<Appointment> appointments = new ArrayList<Appointment>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = "SELECT * FROM `Appointment` WHERE username = '" + username + "';";
+
+        Cursor c = null;
+        c = db.rawQuery(sql, null);
+
+        c.moveToFirst();
+
+        while (!c.isAfterLast()) {
+            Appointment appointment = new Appointment();
+            appointment.setPatient(c.getString(0));
+            appointment.setDoctor(c.getString(1));
+            appointment.setDate(Timestamp.valueOf(c.getString(2)));
+            appointment.setDescription(c.getString(3));
+            appointments.add(appointment);
+            c.moveToNext();
+        }
+        c.close();
+
+        return appointments;
     }
 
     /**

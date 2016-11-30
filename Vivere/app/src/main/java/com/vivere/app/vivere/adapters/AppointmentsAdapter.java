@@ -72,7 +72,7 @@ public class AppointmentsAdapter extends ArrayAdapter {
          * Add real data here including deletion button action
          */
 
-        appHolder.doctorName.setText(data.get(position).getDoctor());
+        appHolder.doctorName.setText(data.get(position).getDoctorName());
         appHolder.appButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

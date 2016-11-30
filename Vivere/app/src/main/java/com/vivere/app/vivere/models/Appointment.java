@@ -10,21 +10,32 @@ public class Appointment {
 
     private String doctor;
     private String patient;
+    private String doctorName;
     private Date date;
     private String description;
 
     public Appointment() {
+        this.doctorName=null;
         this.doctor = null;
         this.patient = null;
         this.date = null;
         this.description = null;
     }
 
-    public Appointment(String doctor, String patient, Date date, String description) {
+    public Appointment(String doctor, String patient, Date date, String description,String d) {
         this.doctor = doctor;
         this.patient = patient;
         this.date = date;
         this.description = description;
+        this.doctorName = d;
+    }
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
     }
 
     public void setDoctor(String doctor) {
