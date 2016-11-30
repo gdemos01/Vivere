@@ -60,6 +60,24 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+        <activity
+            android:name=".addExam"
+            android:label="Add Exam"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".addExamDate"
+            android:label="Select Date"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".addExamTime"
+            android:label="Select Time"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
 
     </application>
 

@@ -1,5 +1,7 @@
 package com.vivere.app.vivere.Fragments;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,10 +12,12 @@ import android.widget.ListView;
 import com.vivere.app.vivere.R;
 import com.vivere.app.vivere.adapters.ExamsAdapter;
 import com.vivere.app.vivere.models.Exam;
+import com.vivere.app.vivere.addExam;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+
 
 /**
  * Created by Giorgos on 11/11/2016.
@@ -23,23 +27,22 @@ public class ExamsFragment extends Fragment {
 
     private View view;
     private ListView examList;
-    private ArrayList<Exam> exams= new ArrayList<>();
+    private ArrayList<Exam> exams = new ArrayList<>();
     private ExamsAdapter examAdapter;
+    private FloatingActionButton examActionBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        if(view==null)
-        {
+        if (view == null) {
             view = inflater.inflate(R.layout.tab_fragment_exams, container, false);
-        }
-        else
-        {
+        } else {
             ViewGroup parent = (ViewGroup) view.getParent();
             parent.removeView(view);
         }
 
-        examAdapter = new ExamsAdapter(getActivity(),R.layout.exams_item);
+        examActionBtn = (FloatingActionButton) view.findViewById(R.id.examsActionBtn);
+        examAdapter = new ExamsAdapter(getActivity(), R.layout.exams_item);
         examList = (ListView) view.findViewById(R.id.examsListView);
         examList.setAdapter(examAdapter);
 
@@ -68,6 +71,14 @@ public class ExamsFragment extends Fragment {
         exams.add(exam2);
         setListData(exam2);
 
+        examActionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), addExam.class);
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
 
@@ -77,7 +88,7 @@ public class ExamsFragment extends Fragment {
         examAdapter.notifyDataSetChanged(); //update adapter
     }
 
-    public void setListData(Exam exam){
+    public void setListData(Exam exam) {
         examAdapter.add(exam);
     }
 }

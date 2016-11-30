@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="2"
+        android:background="@color/colorPrimary"
+        android:padding="10dp"
+        android:gravity="center_vertical"
+        android:textSize="18dp"
+        android:text="Select Type"/>
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:inputType="textPersonName"
+        android:text=""
+        android:ems="10"
+        android:id="@+id/exam_type"
+        android:layout_weight="2" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="2"
+        android:background="@color/colorPrimary"
+        android:padding="10dp"
+        android:gravity="center_vertical"
+        android:textSize="18dp"
+        android:text="Select Medical Specialist Type"/>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/exam_ms_Spinner"
+        android:entries="@array/ms_types"
+        android:layout_weight="2"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="2"
+        android:padding="10dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center_vertical"
+        android:textSize="18dp"
+        android:text="Search Medical Specialist"/>
+
+    <EditText
+        android:id="@+id/exam_msSearchView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:layout_marginBottom="20dp"
+        android:textSize="18dp"
+        android:textColor="#66000000"
+        android:text="Type Doctor/Chemist name"/>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:layout_marginLeft="0dp"
+        android:id="@+id/examAppListView"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="20dp">
+    </ListView>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary"
+        android:layout_weight="2">
+
+        <TextView
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            android:text="Cancel"
+            android:id="@+id/exam_cancelFromMain"
+            android:gravity="center"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:textSize="18dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:id="@+id/exam_selectDate"
+            android:padding="20dp"
+            android:text="Select Date"
+            android:gravity="center"
+            android:clickable="true"
+            android:background="?attr/selectableItemBackground"
+            android:textSize="18dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+</LinearLayout>
