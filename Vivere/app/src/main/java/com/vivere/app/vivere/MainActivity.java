@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 //        ms.setMsusername("jack");
 //
 //        mydb.addMedicalSpecialist(ms);
-//        System.out.println(mydb.getMedicalSpecialist("jack"));
+//        System.out.println(mydb.GetMedicalSpecialist("jack"));
 //
 //        Exam m = new Exam();
 //        m.setMsusername("jack");

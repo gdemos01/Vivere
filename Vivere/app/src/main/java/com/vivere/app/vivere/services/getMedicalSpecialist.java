@@ -2,10 +2,10 @@ package com.vivere.app.vivere.services;
 
 import android.os.AsyncTask;
 
-import com.vivere.app.vivere.Fragments.AppointmentsFragment;
 import com.vivere.app.vivere.MainActivity;
 import com.vivere.app.vivere.db.DatabaseHelper;
 import com.vivere.app.vivere.models.Appointment;
+import com.vivere.app.vivere.models.MedicalSpecialist;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,11 +25,12 @@ import java.net.URLEncoder;
 import java.sql.Timestamp;
 
 /**
- * Created by georg on 14-Nov-16.
- * This class retrieves appointments from the remote server
+ * Created by Giorgos on 30-Nov-16.
+ * This class retrieves information about a specific Medical Specialist
+ * from an online database
  */
 
-public class RetrieveAppointments extends AsyncTask<String,Void,String>{
+public class GetMedicalSpecialist extends AsyncTask<String,Void,String> {
 
     String JSON_STRING;
     String json_url;
@@ -37,7 +38,7 @@ public class RetrieveAppointments extends AsyncTask<String,Void,String>{
 
     @Override
     protected void onPreExecute(){
-        json_url = "http://35.160.125.84/rest/getPatientsApointments.php";
+        json_url = "http://35.160.125.84/rest/getMedicalSpecialistInfo.php";
         dbH = MainActivity.mydb;
     }
 
@@ -91,6 +92,7 @@ public class RetrieveAppointments extends AsyncTask<String,Void,String>{
 
     @Override
     protected void onPostExecute(String result){
+        System.out.println("hehe "+result);
         JSONObject jsonObject;
         JSONArray jsonArray;
         if(result==null){
@@ -101,13 +103,17 @@ public class RetrieveAppointments extends AsyncTask<String,Void,String>{
                 jsonArray = jsonObject.getJSONArray("server_response");
                 int count =0;
                 while(count<jsonArray.length()){
+                    MedicalSpecialist ms = new MedicalSpecialist();
                     Appointment appointment = new Appointment();
                     JSONObject jo = jsonArray.getJSONObject(count);
-                    appointment.setPatient(jo.getString("pusername"));
-                    appointment.setDoctor(jo.getString("msusername"));
-                    appointment.setDate(Timestamp.valueOf(jo.getString("date")));
-                    appointment.setDescription(jo.getString("description"));
-                    dbH.addAppointment(appointment);
+                    ms.setMsusername(jo.getString("username"));
+                    ms.setName(jo.getString("name"));
+                    ms.setSurname(jo.getString("surname"));
+                    ms.setSpeciality(jo.getString("speciality"));
+                    ms.setAddress(jo.getString("address"));
+                    ms.setTelephone(jo.getInt("telephone"));
+                    ms.setType(jo.getString("type"));
+                    dbH.addMedicalSpecialist(ms);
                     count++;
                 }
             } catch (JSONException e) {
@@ -115,4 +121,5 @@ public class RetrieveAppointments extends AsyncTask<String,Void,String>{
             }
         }
     }
+
 }
