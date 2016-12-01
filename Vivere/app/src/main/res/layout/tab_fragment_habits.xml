@@ -21,7 +21,8 @@
             android:layout_width="0px"
             android:layout_height="75dp"
             android:src="@drawable/habits_logo"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"/>
 
         <TextView
             android:layout_width="0px"
