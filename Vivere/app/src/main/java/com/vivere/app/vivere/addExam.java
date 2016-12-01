@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.vivere.app.vivere.adapters.SearchAdapter;
+import com.vivere.app.vivere.adapters.ExamSearchAdapter;
 import com.vivere.app.vivere.addExamDate;
 import com.vivere.app.vivere.addExamTime;
 
@@ -26,7 +26,7 @@ public class addExam extends AppCompatActivity {
     private Spinner dropdown;
     private TextView selectDate;
     private TextView cancel;
-    private SearchAdapter searchAdapter;
+    private ExamSearchAdapter searchAdapter;
     private ListView listView;
     private EditText searchView;
     private EditText type;
@@ -40,7 +40,7 @@ public class addExam extends AppCompatActivity {
         dropdown = (Spinner) findViewById(R.id.exam_ms_Spinner);
         selectDate = (TextView) findViewById(R.id.exam_selectDate);
         cancel = (TextView) findViewById(R.id.exam_cancelFromMain);
-        searchAdapter = new SearchAdapter(this,R.layout.ms_search_item);
+        searchAdapter = new ExamSearchAdapter(this,R.layout.ms_search_item);
         listView = (ListView)findViewById(R.id.examAppListView);
         listView.setAdapter(searchAdapter);
 

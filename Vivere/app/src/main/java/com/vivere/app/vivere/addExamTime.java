@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.vivere.app.vivere.adapters.AvailableHoursAdapter;
+import com.vivere.app.vivere.adapters.ExamAvailableHoursAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,7 +23,7 @@ public class addExamTime extends AppCompatActivity {
     private TextView make;
     private ListView hours;
     private ArrayList<String> avHours= new ArrayList<>();
-    private AvailableHoursAdapter avAdapter;
+    private ExamAvailableHoursAdapter avAdapter;
     private int selectedTime;
 
     protected void onCreate(Bundle savedInstanceState){
@@ -32,8 +32,8 @@ public class addExamTime extends AppCompatActivity {
 
         List list = Arrays.asList(getResources().getStringArray(R.array.available_hours));
         avHours.addAll(list);
-        avAdapter = new AvailableHoursAdapter(this,R.layout.hours_item);
-        hours = (ListView) findViewById(R.id.hoursList);
+        avAdapter = new ExamAvailableHoursAdapter(this,R.layout.hours_item);
+        hours = (ListView) findViewById(R.id.exam_hoursList);
         hours.setAdapter(avAdapter);
         setListData();
 

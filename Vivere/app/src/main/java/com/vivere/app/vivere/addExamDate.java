@@ -34,14 +34,14 @@ public class addExamDate extends AppCompatActivity {
         int mMonth = c.get(Calendar.MONTH);
         int mDay = c.get(Calendar.DAY_OF_MONTH);
 
-        datePicker.setMinDate(System.currentTimeMillis()-1000);
+        datePicker.setMinDate(System.currentTimeMillis() - 1000);
         datePicker.init(mYear, mMonth, mDay, new DatePicker.OnDateChangedListener() {
             @Override
             public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
                 int day = datePicker.getDayOfMonth();
                 int month = datePicker.getMonth() + 1;
                 int year = datePicker.getYear();
-                System.out.println("haha "+day+" "+month+" "+year);
+                System.out.println("haha " + day + " " + month + " " + year);
                 calendar = new GregorianCalendar(year, month, day);
             }
         });
@@ -49,7 +49,7 @@ public class addExamDate extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(addExamDate.this,MainActivity.class);
+                Intent intent = new Intent(addExamDate.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -57,15 +57,15 @@ public class addExamDate extends AppCompatActivity {
         selectTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(calendar==null){
+                if (calendar == null) {
                     int day = datePicker.getDayOfMonth();
                     int month = datePicker.getMonth() + 1;
                     int year = datePicker.getYear();
-                    System.out.println("haha "+day+" "+month+" "+year);
+                    System.out.println("haha " + day + " " + month + " " + year);
                     calendar = new GregorianCalendar(year, month, day);
                 }
-                Intent intent = new Intent(addExamDate.this,addExamTime.class);
-                intent.putExtra("date",calendar.getTimeInMillis());
+                Intent intent = new Intent(addExamDate.this, addExamTime.class);
+                intent.putExtra("date", calendar.getTimeInMillis());
                 startActivity(intent);
             }
         });
