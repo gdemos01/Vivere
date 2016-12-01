@@ -3,6 +3,7 @@ package com.vivere.app.vivere;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -56,6 +57,13 @@ public class MainActivity extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
                 showNotificationWReply("Habit title", "The question goes here?");
+                //VivereNotificationService vns = new VivereNotificationService();
+                //Intent intent = new Intent(MainActivity.this, VivereNotificationService.class);
+
+//                vns.onHandleIntent(intent);
+//                vns.onStartCommand(intent, Service.START_FLAG_REDELIVERY, 123);
+//                vns.createNotification();
+
             }
 
             @Override
