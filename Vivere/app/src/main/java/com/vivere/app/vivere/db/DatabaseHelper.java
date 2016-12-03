@@ -886,7 +886,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void deleteAppointment(String username, String msusername, String timestamp) {
         SQLiteDatabase db = this.getWritableDatabase();
         String sql = "DELETE FROM `Appointment` WHERE username = '" + username
-                + " AND msusername = '" + msusername + "' AND timestamp = '" + timestamp + "';";
+                + "' AND msusername = '" + msusername + "' AND timestamp = '" + timestamp + "';";
 
         db.execSQL(sql);
     }

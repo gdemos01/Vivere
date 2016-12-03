@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.vivere.app.vivere.Fragments.AppointmentsFragment;
 import com.vivere.app.vivere.R;
 import com.vivere.app.vivere.models.Appointment;
+import com.vivere.app.vivere.services.DeleteAppointment;
 
 import java.util.ArrayList;
 
@@ -82,6 +83,10 @@ public class AppointmentsAdapter extends ArrayAdapter {
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
+                            Appointment a = data.get(position);
+                            DeleteAppointment delApp = new DeleteAppointment();
+                            delApp.execute(a.getPatient(),a.getDoctor(),a.getDate().toString());
+                            appFragment.db.deleteAppointment(a.getPatient(),a.getDoctor(),a.getDate().toString());
                             data.remove(position);
                             appFragment.updateAdapter(position);
                         }
@@ -89,6 +94,7 @@ public class AppointmentsAdapter extends ArrayAdapter {
                 }
             }
         });
+
         row.setOnClickListener(new AppointmentsAdapter.OnItemClickListener(position));
         return row;
     }

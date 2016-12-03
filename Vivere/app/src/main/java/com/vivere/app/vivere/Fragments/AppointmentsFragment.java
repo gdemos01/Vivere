@@ -34,7 +34,7 @@ public class AppointmentsFragment extends Fragment {
     private ArrayList<Appointment> appointments= new ArrayList<>();
     private AppointmentsAdapter appAdapter;
     private FloatingActionButton appActionBtn;
-    private DatabaseHelper db;
+    public  DatabaseHelper db;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
