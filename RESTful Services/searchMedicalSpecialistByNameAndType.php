@@ -11,7 +11,7 @@ $type = $_POST["type"];
 
 
 
-$sql = "SELECT username,name,surname,speciality,address,telephone,type FROM MedicalSpecialist WHERE name LIKE '$name%' AMD type LIKE '$type' LIMIT 5;";
+$sql = "SELECT username,name,surname,speciality,address,telephone,type FROM MedicalSpecialist WHERE name LIKE '$name%' AND type LIKE '$type' LIMIT 5;";
 $result = mysqli_query($conn, $sql);
 $rows = array();
 

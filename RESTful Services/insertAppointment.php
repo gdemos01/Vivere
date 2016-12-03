@@ -6,7 +6,7 @@ $server_name = "viveredb.csx62dscodbn.us-west-2.rds.amazonaws.com";
 $conn = mysqli_connect($server_name,$mysql_username,$mysql_password,$db_name); 
 
 $puser_name= $_POST["puser_name"];
-$muser_name= $_POST["msuser_name"];
+$msuser_name= $_POST["msuser_name"];
 $date = $_POST["date"];
 $desc = $_POST["description"];
 
