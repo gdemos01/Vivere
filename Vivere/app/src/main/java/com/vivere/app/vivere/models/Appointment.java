@@ -1,5 +1,6 @@
 package com.vivere.app.vivere.models;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -11,7 +12,7 @@ public class Appointment {
     private String doctor;
     private String patient;
     private String doctorName;
-    private Date date;
+    private Timestamp date;
     private String description;
 
     public Appointment() {
@@ -22,7 +23,7 @@ public class Appointment {
         this.description = null;
     }
 
-    public Appointment(String doctor, String patient, Date date, String description,String d) {
+    public Appointment(String doctor, String patient, Timestamp date, String description,String d) {
         this.doctor = doctor;
         this.patient = patient;
         this.date = date;
@@ -46,7 +47,7 @@ public class Appointment {
         this.patient = patient;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 

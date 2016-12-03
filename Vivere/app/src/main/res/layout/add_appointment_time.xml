@@ -42,6 +42,7 @@
 
 
         <TextView
+            android:id="@+id/makeApp"
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:padding="20dp"

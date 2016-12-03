@@ -14,6 +14,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.vivere.app.vivere.adapters.SearchAdapter;
+import com.vivere.app.vivere.db.DatabaseHelper;
+import com.vivere.app.vivere.services.SearchMedicalSpecialist;
 
 /**
  * Created by Giorgos on 24/11/2016.
@@ -24,9 +26,13 @@ public class addAppointment extends AppCompatActivity {
     private Spinner dropdown;
     private TextView selectDate;
     private TextView cancel;
-    private SearchAdapter searchAdapter;
+    public static SearchAdapter searchAdapter;
     private ListView listView;
     private EditText searchView;
+    public SearchMedicalSpecialist sms ;
+    private DatabaseHelper db;
+    private String ms_selected;
+    private EditText appDesc;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +45,10 @@ public class addAppointment extends AppCompatActivity {
         searchAdapter = new SearchAdapter(this,R.layout.ms_search_item);
         listView = (ListView)findViewById(R.id.addAppListView);
         listView.setAdapter(searchAdapter);
+        db = new DatabaseHelper(this);
+        ms_selected = null;
+        appDesc = (EditText)findViewById(R.id.appDesc);
+
 
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +66,15 @@ public class addAppointment extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //Search
+                searchAdapter.clearData();
+                String str = charSequence.toString();
+                    if(str.length()!=0) {
+                        if (sms != null) {
+                            sms.cancel(true);
+                        }
+                        sms = new SearchMedicalSpecialist();
+                        sms.execute(str, dropdown.getSelectedItem().toString());
+                    }
             }
 
             @Override
@@ -67,7 +85,7 @@ public class addAppointment extends AppCompatActivity {
 
         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, final int i, long l) {
                 TextView msTv = (TextView) view;
                 String msType = msTv.getText().toString();
 
@@ -81,7 +99,10 @@ public class addAppointment extends AppCompatActivity {
                 selectDate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        String desc = appDesc.getText().toString();
                         Intent intent = new Intent(addAppointment.this,addAppointmentDate.class);
+                        intent.putExtra("msusername",ms_selected);
+                        intent.putExtra("description",desc);
                         startActivity(intent);
 
                     }
@@ -94,6 +115,11 @@ public class addAppointment extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void onItemClick(int pos){
+        db.addMedicalSpecialist(searchAdapter.getItem(pos));
+        ms_selected = searchAdapter.getItem(pos).getMsusername();
     }
 
     public void updateAdapter() { searchAdapter.notifyDataSetChanged(); //update adapter

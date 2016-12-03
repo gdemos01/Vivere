@@ -563,17 +563,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         c.moveToFirst();
 
-        MedicalSpecialist medicalSpecialist = new MedicalSpecialist();
-        medicalSpecialist.setMsusername(c.getString(0));
-        medicalSpecialist.setPassword(c.getString(1));
-        medicalSpecialist.setName(c.getString(2));
-        medicalSpecialist.setSurname(c.getString(3));
-        medicalSpecialist.setSpeciality(c.getString(4));
-        medicalSpecialist.setAddress(c.getString(5));
-        medicalSpecialist.setTelephone(c.getInt(6));
-        medicalSpecialist.setType(c.getString(7));
-
-        c.moveToNext();
+        MedicalSpecialist medicalSpecialist =null;
+        if(c.getCount()!=0) {
+            medicalSpecialist = new MedicalSpecialist();
+            medicalSpecialist.setMsusername(c.getString(0));
+            medicalSpecialist.setPassword(c.getString(1));
+            medicalSpecialist.setName(c.getString(2));
+            medicalSpecialist.setSurname(c.getString(3));
+            medicalSpecialist.setSpeciality(c.getString(4));
+            medicalSpecialist.setAddress(c.getString(5));
+            medicalSpecialist.setTelephone(c.getInt(6));
+            medicalSpecialist.setType(c.getString(7));
+            c.moveToNext();
+        }
 
         c.close();
 

@@ -63,22 +63,18 @@ public class AppointmentsFragment extends Fragment {
         RetrieveAppointments retrieveAppointments = new RetrieveAppointments();
         retrieveAppointments.execute(db.getPatient("john").getUsername());
 
-        GetMedicalSpecialist getMedicalSpecialist = new GetMedicalSpecialist();
-        getMedicalSpecialist.execute("strange");
+        //GetMedicalSpecialist getMedicalSpecialist = new GetMedicalSpecialist();
+        //getMedicalSpecialist.execute("strange");
 
-        /**
-         * Real appointments now
-         */
         appointments = db.getAppointments("john");
 
         int count =0;
         while(count<appointments.size()){
             Appointment app = appointments.get(count);
             MedicalSpecialist ms = db.getMedicalSpecialist(app.getDoctor());
-
-            //change to ms == null later
-            if(ms.getMsusername()==null){
-                setListData(app);
+            if(ms==null){
+                GetMedicalSpecialist getMedicalSpecialist = new GetMedicalSpecialist();
+                getMedicalSpecialist.execute(app.getDoctor());
             }else{
                 app.setDoctorName("Dr "+ms.getName()+" "+ms.getSurname());
                 setListData(app);

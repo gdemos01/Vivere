@@ -21,6 +21,8 @@ public class addAppointmentDate extends AppCompatActivity {
     private TextView selectTime;
     private TextView cancel;
     private DatePicker datePicker;
+    private String ms_selected;
+    private String desc;
     public Calendar calendar;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,10 @@ public class addAppointmentDate extends AppCompatActivity {
         selectTime = (TextView) findViewById(R.id.selectTime);
         cancel = (TextView) findViewById(R.id.cancelFromDate);
         datePicker = (DatePicker) findViewById(R.id.datePicker);
+
+        Intent intent = getIntent();
+        ms_selected = intent.getExtras().getString("msusername");
+        desc = intent.getExtras().getString("description");
 
         Calendar c = Calendar.getInstance();
         int mYear = c.get(Calendar.YEAR);
@@ -41,7 +47,7 @@ public class addAppointmentDate extends AppCompatActivity {
             @Override
             public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
                 int day = datePicker.getDayOfMonth();
-                int month = datePicker.getMonth() + 1;
+                int month = datePicker.getMonth();
                 int year = datePicker.getYear();
                 System.out.println("haha "+day+" "+month+" "+year);
                 calendar = new GregorianCalendar(year, month, day);
@@ -61,13 +67,15 @@ public class addAppointmentDate extends AppCompatActivity {
             public void onClick(View view) {
                 if(calendar==null){
                     int day = datePicker.getDayOfMonth();
-                    int month = datePicker.getMonth() + 1;
+                    int month = datePicker.getMonth();
                     int year = datePicker.getYear();
                     System.out.println("haha "+day+" "+month+" "+year);
                     calendar = new GregorianCalendar(year, month, day);
                 }
                 Intent intent = new Intent(addAppointmentDate.this,addAppointmentTime.class);
+                intent.putExtra("msusername",ms_selected);
                 intent.putExtra("date",calendar.getTimeInMillis());
+                intent.putExtra("description",desc);
                 startActivity(intent);
             }
         });
