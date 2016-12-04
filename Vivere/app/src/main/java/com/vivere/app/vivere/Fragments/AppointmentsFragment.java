@@ -20,6 +20,7 @@ import com.vivere.app.vivere.services.GetMedicalSpecialist;
 import com.vivere.app.vivere.services.RetrieveAppointments;
 import com.vivere.app.vivere.viewAppointment;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -59,6 +60,7 @@ public class AppointmentsFragment extends Fragment {
         /**
          * This is the creation of appointments.
          * It should be moved to a splash screen or something
+         * We should retrieve medical specialist for all the appoi
          */
         RetrieveAppointments retrieveAppointments = new RetrieveAppointments();
         retrieveAppointments.execute(db.getPatient("john").getUsername());
@@ -67,17 +69,20 @@ public class AppointmentsFragment extends Fragment {
         //getMedicalSpecialist.execute("strange");
 
         appointments = db.getAppointments("john");
+        Timestamp today = new Timestamp(System.currentTimeMillis());
 
         int count =0;
         while(count<appointments.size()){
             Appointment app = appointments.get(count);
-            MedicalSpecialist ms = db.getMedicalSpecialist(app.getDoctor());
-            if(ms==null){
-                GetMedicalSpecialist getMedicalSpecialist = new GetMedicalSpecialist();
-                getMedicalSpecialist.execute(app.getDoctor());
-            }else{
-                app.setDoctorName("Dr "+ms.getName()+" "+ms.getSurname());
-                setListData(app);
+            if(app.getDate().after(today)) {
+                MedicalSpecialist ms = db.getMedicalSpecialist(app.getDoctor());
+                if (ms == null) {
+                    GetMedicalSpecialist getMedicalSpecialist = new GetMedicalSpecialist();
+                    getMedicalSpecialist.execute(app.getDoctor());
+                } else {
+                    app.setDoctorName("Dr " + ms.getName() + " " + ms.getSurname());
+                    setListData(app);
+                }
             }
             count++;
         }

@@ -14,6 +14,7 @@ public class Appointment {
     private String doctorName;
     private Timestamp date;
     private String description;
+    private String advice;
 
     public Appointment() {
         this.doctorName=null;
@@ -21,14 +22,24 @@ public class Appointment {
         this.patient = null;
         this.date = null;
         this.description = null;
+        this.advice = null;
     }
 
-    public Appointment(String doctor, String patient, Timestamp date, String description,String d) {
+    public Appointment(String doctor, String patient, Timestamp date, String description,String d,String ad) {
         this.doctor = doctor;
         this.patient = patient;
         this.date = date;
         this.description = description;
         this.doctorName = d;
+        this.advice = ad;
+    }
+
+    public String getAdvice() {
+        return advice;
+    }
+
+    public void setAdvice(String advice) {
+        this.advice = advice;
     }
 
     public String getDoctorName() {
@@ -63,7 +74,7 @@ public class Appointment {
         return patient;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 

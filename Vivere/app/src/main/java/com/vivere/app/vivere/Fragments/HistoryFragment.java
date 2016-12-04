@@ -2,6 +2,7 @@ package com.vivere.app.vivere.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +11,15 @@ import android.widget.ListView;
 
 import com.vivere.app.vivere.R;
 import com.vivere.app.vivere.adapters.HistoryAdapter;
+import com.vivere.app.vivere.db.DatabaseHelper;
 import com.vivere.app.vivere.models.Advice;
+import com.vivere.app.vivere.models.Appointment;
+import com.vivere.app.vivere.models.Exam;
+import com.vivere.app.vivere.models.MedicalSpecialist;
+import com.vivere.app.vivere.services.GetMedicalSpecialist;
 import com.vivere.app.vivere.viewAdvice;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -26,6 +33,9 @@ public class HistoryFragment extends Fragment {
     private ListView advList;
     private ArrayList<Advice> history= new ArrayList<>();
     private HistoryAdapter histAdapter;
+    private ArrayList<Appointment> appointments=new ArrayList<>();
+    private ArrayList<Exam> exams = new ArrayList<>();
+    public DatabaseHelper db;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,20 +53,59 @@ public class HistoryFragment extends Fragment {
         histAdapter = new HistoryAdapter( getActivity(),HistoryFragment.this,R.layout.history_item);
         advList = (ListView) view.findViewById(R.id.adviceListView);
         advList.setAdapter(histAdapter);
+        db = new DatabaseHelper(getContext());
 
-        /*Demo data - later retrieve from database*/
-        Date d = new Date();
-        d.setTime(System.currentTimeMillis());
-        Advice adv = new Advice();
-        adv.setDate(d);
-        adv.setDoctor("Dr Strange");
-        adv.setType("Prostate Exam");
-        adv.setResults("Fine dude dont worry");
-        adv.setAdvice("Drink More Water");
+        appointments = db.getAppointments("john");
+        exams = db.getExams();
+        Timestamp today = new Timestamp(System.currentTimeMillis());
 
-        history.add(adv);
-        setListData(adv);
+        for(int i=0;i<appointments.size();i++){
+            Appointment app = appointments.get(i);
+            if(app.getDate().after(today)){
+                MedicalSpecialist ms = db.getMedicalSpecialist(app.getDoctor());
+                if (ms == null) {
+                    GetMedicalSpecialist getMedicalSpecialist = new GetMedicalSpecialist();
+                    getMedicalSpecialist.execute(app.getDoctor());
+                } else {
+                    app.setDoctorName("Dr " + ms.getName() + " " + ms.getSurname());
+                    Advice advice = new Advice();
+                    advice.setPatient("john");
+                    advice.setDate(app.getDate());
+                    advice.setAdvice(app.getAdvice());
+                    advice.setDoctor(app.getDoctor());
+                    advice.setDoctorName(app.getDoctorName());
+                    advice.setResults("-");
+                    advice.setType("Appointment");
+                    history.add(advice);
+                    setListData(advice);
+                }
+            }
+        }
 
+        for(int i=0;i<exams.size();i++){
+            Exam exam = new Exam();
+            String doctorName="";
+            if(exam.getTimestamp().before(today)){
+                MedicalSpecialist ms = db.getMedicalSpecialist(exam.getMsusername());
+                if (ms == null) {
+                    GetMedicalSpecialist getMedicalSpecialist = new GetMedicalSpecialist();
+                    getMedicalSpecialist.execute(exam.getMsusername());
+                } else {
+                    doctorName = "Dr " + ms.getName() + " " + ms.getSurname();
+                    Advice advice = new Advice();
+                    advice.setDoctor(exam.getMsusername());
+                    advice.setType(exam.getType());
+                    advice.setAdvice(exam.getAdvice());
+                    advice.setResults(exam.getResults());
+                    advice.setDate(exam.getTimestamp());
+                    advice.setDoctorName(doctorName);
+                    advice.setExamId(exam.getId());
+                    advice.setPatient("john");
+                    history.add(advice);
+                    setListData(advice);
+                }
+            }
+        }
         return view;
 
     }
@@ -67,8 +116,13 @@ public class HistoryFragment extends Fragment {
     }
 
     public void onItemClick(int pos){
+        Advice advice = history.get(pos);
         Intent intent = new Intent(getActivity(), viewAdvice.class);
-        //intent.putExtra("video_id",videos.get(mPosition).getId());
+        intent.putExtra("type",advice.getType());
+        intent.putExtra("doctor",advice.getDoctorName());
+        intent.putExtra("date",advice.getDate().toString());
+        intent.putExtra("results",advice.getResults());
+        intent.putExtra("advice",advice.getAdvice());
         startActivity(intent);
     }
 

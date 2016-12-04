@@ -88,6 +88,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //TABLE Appointment
     private static final String COL_DESCRIPTION = "description";
+    private static final String COL_ADVICE ="advice";
     //private static final String COL_TIMESTAMP = "timestamp";
     //private static final String COL_USERNAME = "username";
     //private static final String COL_MSUSERNAME= "msusername";
@@ -123,7 +124,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_APPOINTMENT = "CREATE TABLE " + TB_APPOINTMENT + " (" + COL_USERNAME + " TEXT NOT NULL REFERENCES "
             + TB_PATIENT + "(" + COL_USERNAME + "), " + COL_MSUSERNAME + " TEXT NOT NULL REFERENCES " + TB_MEDSPEC + "(" + COL_MSUSERNAME + "), "
-            + COL_TIMESTAMP + " DATE NOT NULL, " + COL_DESCRIPTION + " TEXT NOT NULL, "
+            + COL_TIMESTAMP + " DATE NOT NULL, " + COL_DESCRIPTION + " TEXT NOT NULL, "+COL_ADVICE+" TEXT NOT NULL, "
             + "PRIMARY KEY (" + COL_USERNAME + ", " + COL_MSUSERNAME + ", " + COL_TIMESTAMP + ")" + ")";
 
     /*Database Constructor
@@ -660,9 +661,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void addAppointment(Appointment a) {
         SQLiteDatabase db = this.getWritableDatabase();
         String sql =
-                "INSERT or replace INTO Appointment (description, timestamp, username, msusername) "
+                "INSERT or replace INTO Appointment (description, timestamp, username, msusername,advice) "
                         + "VALUES('" + a.getDescription() + "', '"
-                        + a.getDate() + "', '" + a.getPatient() + "', '" + a.getDoctor() + "')";
+                        + a.getDate() + "', '" + a.getPatient() + "', '" + a.getDoctor() + "','"+
+                        a.getAdvice()+"')";
         db.execSQL(sql);
     }
 
@@ -691,6 +693,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         appointment.setDoctor(c.getString(1));
         appointment.setDate(Timestamp.valueOf(c.getString(2)));
         appointment.setDescription(c.getString(3));
+        appointment.setAdvice(c.getString(4));
 
         c.moveToNext();
 
@@ -723,6 +726,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             appointment.setDoctor(c.getString(1));
             appointment.setDate(Timestamp.valueOf(c.getString(2)));
             appointment.setDescription(c.getString(3));
+            appointment.setAdvice(c.getString(4));
             appointments.add(appointment);
             c.moveToNext();
         }
@@ -831,9 +835,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      *
      * @param id
      */
-    public void deleteExam(String id) {
+    public void deleteExam(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String sql = "DELETE FROM `Exam` WHERE id = '" + id + "';";
+        String sql = "DELETE FROM `Exam` WHERE id = " + id + ";";
 
         db.execSQL(sql);
     }

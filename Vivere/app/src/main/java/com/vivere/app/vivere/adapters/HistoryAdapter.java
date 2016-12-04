@@ -1,6 +1,7 @@
 package com.vivere.app.vivere.adapters;
 
 import android.content.Context;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.vivere.app.vivere.Fragments.HistoryFragment;
 import com.vivere.app.vivere.R;
 import com.vivere.app.vivere.models.Advice;
+import com.vivere.app.vivere.services.DeleteAppointment;
 
 import java.util.ArrayList;
 
@@ -64,16 +66,33 @@ public class HistoryAdapter extends ArrayAdapter {
         }else{
             adviceHolder = (AdviceHolder) row.getTag();
         }
-        /***
-         * Add real data here including deletion button action
-         */
 
         adviceHolder.advTitle.setText(data.get(position).getType() + " - " + data.get(position).getDate());
 
         adviceHolder.advButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Delete the exam
+                final Handler handler = new Handler();
+                if(data.size()!=0) {
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Advice a = data.get(position);
+                            if(a.getType().contains("Appointment")){
+                                DeleteAppointment delApp = new DeleteAppointment();
+                                delApp.execute(a.getPatient(),a.getDoctor(),a.getDate().toString());
+                                histFragment.db.deleteAppointment(a.getPatient(),a.getDoctor(),a.getDate().toString());
+                                data.remove(position);
+                                histFragment.updateAdapter(position);
+                            }else{
+                                //1. Delete exam service
+                                histFragment.db.deleteExam(a.getExamId());
+                                data.remove(position);
+                                histFragment.updateAdapter(position);
+                            }
+                        }
+                    }, 300);
+                }
             }
         });
         row.setOnClickListener(new HistoryAdapter.OnItemClickListener(position));

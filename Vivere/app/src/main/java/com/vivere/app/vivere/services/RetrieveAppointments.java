@@ -107,6 +107,7 @@ public class RetrieveAppointments extends AsyncTask<String,Void,String>{
                     appointment.setDoctor(jo.getString("msusername"));
                     appointment.setDate(Timestamp.valueOf(jo.getString("date")));
                     appointment.setDescription(jo.getString("description"));
+                    appointment.setAdvice(jo.getString("advice"));
                     dbH.addAppointment(appointment);
                     count++;
                 }
