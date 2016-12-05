@@ -1,5 +1,7 @@
 package com.vivere.app.vivere.Fragments;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,7 +11,7 @@ import android.widget.ListView;
 
 import com.vivere.app.vivere.R;
 import com.vivere.app.vivere.adapters.MedicAdapter;
-import com.vivere.app.vivere.models.Exam;
+import com.vivere.app.vivere.addMedication;
 import com.vivere.app.vivere.models.Medication;
 
 import java.sql.Date;
@@ -24,6 +26,7 @@ public class MedicationFragment extends Fragment {
     private ListView medicList;
     private ArrayList<Medication> medications= new ArrayList<>();
     private MedicAdapter medicAdapter;
+    private FloatingActionButton medicActionBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,6 +41,7 @@ public class MedicationFragment extends Fragment {
             parent.removeView(view);
         }
 
+        medicActionBtn = (FloatingActionButton) view.findViewById(R.id.medicationActionBtn);
         medicAdapter = new MedicAdapter(getActivity(),R.layout.medication_item);
         medicList = (ListView) view.findViewById(R.id.medicationListView);
         medicList.setAdapter(medicAdapter);
@@ -66,6 +70,14 @@ public class MedicationFragment extends Fragment {
 
         medications.add(m2);
         setListData(m2);
+
+        medicActionBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), addMedication.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }

@@ -78,6 +78,12 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+        <activity
+            android:name=".addMedication"
+            android:label="Add Medication"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
         <!--SERVICES-->
 
         <service

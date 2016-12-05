@@ -60,9 +60,9 @@ public class MainActivity extends AppCompatActivity {
                 //VivereNotificationService vns = new VivereNotificationService();
                 //Intent intent = new Intent(MainActivity.this, VivereNotificationService.class);
 
-//                vns.onHandleIntent(intent);
-//                vns.onStartCommand(intent, Service.START_FLAG_REDELIVERY, 123);
-//                vns.createNotification();
+                //vns.onHandleIntent(intent);
+                //vns.onStartCommand(intent, Service.START_FLAG_REDELIVERY, 123);
+                //vns.createNotification();
 
             }
 
