@@ -90,6 +90,12 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+        <activity
+            android:name=".viewExam"
+            android:label="View Exam"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
         <!--SERVICES-->
 
         <service

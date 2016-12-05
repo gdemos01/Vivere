@@ -2,6 +2,7 @@ package com.vivere.app.vivere.adapters;
 
 import android.content.Context;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +13,7 @@ import android.widget.TextView;
 import com.vivere.app.vivere.Fragments.AppointmentsFragment;
 import com.vivere.app.vivere.Fragments.ExamsFragment;
 import com.vivere.app.vivere.R;
-import com.vivere.app.vivere.models.Appointment;
 import com.vivere.app.vivere.models.Exam;
-import com.vivere.app.vivere.services.DeleteAppointment;
 import com.vivere.app.vivere.services.DeleteExam;
 
 import java.util.ArrayList;
@@ -28,8 +27,9 @@ public class ExamsAdapter extends ArrayAdapter {
     ExamsFragment examsFragment;
     Context examActivity;
 
-    public ExamsAdapter(Context context, int resource){
+    public ExamsAdapter(Context context, Fragment homeFragment, int resource){
         super(context,resource);
+        this.examsFragment = (ExamsFragment) homeFragment;
         this.examActivity = context;
     }
 
@@ -87,6 +87,7 @@ public class ExamsAdapter extends ArrayAdapter {
                             Exam a = data.get(position);
                             DeleteExam delEx = new DeleteExam();
                             delEx.execute(a.getId()+"");
+                            System.out.println(a);
                             examsFragment.db.deleteExam(a.getId());
                             data.remove(position);
                             examsFragment.updateAdapter(position);
@@ -95,8 +96,22 @@ public class ExamsAdapter extends ArrayAdapter {
                 }
             }
         });
-
+        row.setOnClickListener(new ExamsAdapter.OnItemClickListener(position));
         return row;
+    }
+
+    /********* Called when Item click in ListView ************/
+    private class OnItemClickListener  implements View.OnClickListener {
+        private int mPosition;
+
+        OnItemClickListener(int position){
+            mPosition = position;
+        }
+
+        @Override
+        public void onClick(View arg0) {
+            examsFragment.onItemClick(mPosition);
+        }
     }
 
     public void clearData(){
