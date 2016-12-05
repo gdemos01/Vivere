@@ -25,10 +25,7 @@ public class InsertAppointment extends AsyncTask<String,Void,String> {
 
     @Override
     protected void onPreExecute(){
-        /**
-         * Change when kakos gets back from vacation
-         */
-        url_str = "http://badfive.com/tempViv/insertAppointment.php";
+        url_str = "http://35.160.125.84/rest/insertAppointment.php";
     }
 
     @Override

@@ -7,8 +7,6 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
-import com.vivere.app.vivere.Fragments.AppointmentsFragment;
-
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -49,7 +47,6 @@ public class addAppointmentDate extends AppCompatActivity {
                 int day = datePicker.getDayOfMonth();
                 int month = datePicker.getMonth();
                 int year = datePicker.getYear();
-                System.out.println("haha "+day+" "+month+" "+year);
                 calendar = new GregorianCalendar(year, month, day);
             }
         });

@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:textSize="18dp"
         android:textAlignment="center"
         android:text="Did you know you it takes only 66 days to break/gain a habit?"/>

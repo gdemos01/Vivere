@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.text.format.Time;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,7 +17,6 @@ import com.vivere.app.vivere.services.InsertAppointment;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 
@@ -107,6 +105,7 @@ public class addAppointmentTime extends AppCompatActivity {
                 appMilliTime+= addMin;
                 Timestamp t = new Timestamp(appMilliTime);
                 app.setDate(t);
+                app.setAdvice(" ");
                 InsertAppointment insertAppointment = new InsertAppointment();
                 insertAppointment.execute("john",ms_selected,t.toString(),description);
                 db.addAppointment(app);

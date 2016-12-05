@@ -22,7 +22,6 @@ import com.vivere.app.vivere.viewAppointment;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by Giorgos on 11/11/2016.
@@ -81,6 +80,7 @@ public class AppointmentsFragment extends Fragment {
                     getMedicalSpecialist.execute(app.getDoctor());
                 } else {
                     app.setDoctorName("Dr " + ms.getName() + " " + ms.getSurname());
+                    System.out.println("haha "+"Dr " + ms.getName() + " " + ms.getSurname());
                     setListData(app);
                 }
             }

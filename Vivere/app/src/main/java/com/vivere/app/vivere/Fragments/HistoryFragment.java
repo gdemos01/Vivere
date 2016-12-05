@@ -2,7 +2,6 @@ package com.vivere.app.vivere.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,6 @@ import com.vivere.app.vivere.viewAdvice;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by Giorgos on 11/11/2016.
@@ -61,7 +59,7 @@ public class HistoryFragment extends Fragment {
 
         for(int i=0;i<appointments.size();i++){
             Appointment app = appointments.get(i);
-            if(app.getDate().after(today)){
+            if(app.getDate().before(today)){
                 MedicalSpecialist ms = db.getMedicalSpecialist(app.getDoctor());
                 if (ms == null) {
                     GetMedicalSpecialist getMedicalSpecialist = new GetMedicalSpecialist();

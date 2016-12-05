@@ -35,10 +35,7 @@ public class SearchMedicalSpecialist extends AsyncTask<String,Void,String> {
 
     @Override
     protected void onPreExecute(){
-        /**
-         * Change this whem Kakos gets back
-         */
-        json_url = "http://badfive.com/tempViv/searchMedicalSpecialistByNameAndType.php";
+        json_url = "http://35.160.125.84/rest/searchMedicalSpecialistByNameAndType.php";
     }
 
     @Override

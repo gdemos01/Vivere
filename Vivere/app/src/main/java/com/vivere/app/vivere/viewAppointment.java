@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 /**
- * Created by Giorgs on 25-Nov-16.
+ * Created by Giorgos on 25-Nov-16.
  */
 
 public class viewAppointment extends AppCompatActivity {
