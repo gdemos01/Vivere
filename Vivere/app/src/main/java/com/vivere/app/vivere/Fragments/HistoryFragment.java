@@ -57,7 +57,8 @@ public class HistoryFragment extends Fragment {
         exams = db.getExams();
         Timestamp today = new Timestamp(System.currentTimeMillis());
 
-        for(int i=0;i<appointments.size();i++){
+        int i =0;
+        while(i<appointments.size()){
             Appointment app = appointments.get(i);
             if(app.getDate().before(today)){
                 MedicalSpecialist ms = db.getMedicalSpecialist(app.getDoctor());
@@ -77,10 +78,14 @@ public class HistoryFragment extends Fragment {
                     history.add(advice);
                     setListData(advice);
                 }
+                i++;
+            }else{
+                appointments.remove(i);
             }
         }
 
-        for(int i=0;i<exams.size();i++){
+        i=0;
+        while(i<exams.size()){
             Exam exam = exams.get(i);
             String doctorName="";
             if(exam.getTimestamp().before(today)){
@@ -102,6 +107,9 @@ public class HistoryFragment extends Fragment {
                     history.add(advice);
                     setListData(advice);
                 }
+                i++;
+            }else{
+                exams.remove(i);
             }
         }
         return view;

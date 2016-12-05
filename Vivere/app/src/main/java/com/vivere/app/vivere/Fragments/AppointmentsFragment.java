@@ -83,8 +83,10 @@ public class AppointmentsFragment extends Fragment {
                     System.out.println("haha "+"Dr " + ms.getName() + " " + ms.getSurname());
                     setListData(app);
                 }
+                count++;
+            }else{
+                appointments.remove(count);
             }
-            count++;
         }
 
         appActionBtn.setOnClickListener(new View.OnClickListener() {

@@ -13,6 +13,7 @@ import com.vivere.app.vivere.Fragments.HistoryFragment;
 import com.vivere.app.vivere.R;
 import com.vivere.app.vivere.models.Advice;
 import com.vivere.app.vivere.services.DeleteAppointment;
+import com.vivere.app.vivere.services.DeleteExam;
 
 import java.util.ArrayList;
 
@@ -85,7 +86,8 @@ public class HistoryAdapter extends ArrayAdapter {
                                 data.remove(position);
                                 histFragment.updateAdapter(position);
                             }else{
-                                //1. Delete exam service
+                                DeleteExam deleteExam = new DeleteExam();
+                                deleteExam.execute(Integer.toString(a.getExamId()));
                                 histFragment.db.deleteExam(a.getExamId());
                                 data.remove(position);
                                 histFragment.updateAdapter(position);
