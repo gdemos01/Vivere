@@ -9,8 +9,9 @@ $puser_name= $_POST["puser_name"];
 $msuser_name= $_POST["msuser_name"];
 $date = $_POST["date"];
 $desc = $_POST["description"];
+$advice = " ";
 
-$sql= "INSERT INTO Appointment VALUES('$puser_name','$msuser_name','$date','$desc');";
+$sql= "INSERT INTO Appointment VALUES('$puser_name','$msuser_name','$date','$desc', '$advice');";
 
 
 if(mysqli_query($conn,$sql)){
