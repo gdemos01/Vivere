@@ -19,6 +19,7 @@ import com.vivere.app.vivere.models.MedicalSpecialist;
 import com.vivere.app.vivere.services.GetMedicalSpecialist;
 import com.vivere.app.vivere.services.RetrieveAppointments;
 import com.vivere.app.vivere.services.RetrieveExams;
+import com.vivere.app.vivere.viewExam;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class ExamsFragment extends Fragment {
         }
 
         examActionBtn = (FloatingActionButton) view.findViewById(R.id.examsActionBtn);
-        examAdapter = new ExamsAdapter(getActivity(), R.layout.exams_item);
+        examAdapter = new ExamsAdapter(getActivity(), ExamsFragment.this, R.layout.exams_item);
         examList = (ListView) view.findViewById(R.id.examsListView);
         examList.setAdapter(examAdapter);
 
@@ -87,14 +88,15 @@ public class ExamsFragment extends Fragment {
         //getMedicalSpecialist.execute("strange");
 
         allexams = db.getExams();
+        System.out.println(allexams);
         Timestamp today = new Timestamp(System.currentTimeMillis());
 
         int count = 0;
         while (count < allexams.size()) {
             Exam ex = allexams.get(count);
-            //if (ex.getTimestamp().after(today)) {
+            if (ex.getTimestamp().after(today)) {
                 setListData(ex);
-            //}
+            }
             count++;
         }
 
@@ -113,6 +115,17 @@ public class ExamsFragment extends Fragment {
 
         allexams.remove(pos);
         examAdapter.notifyDataSetChanged(); //update adapter
+    }
+
+    public void onItemClick(int pos){
+        // Do something on item click
+        Intent intent = new Intent(getActivity(), viewExam.class);
+        intent.putExtra("Doctor",allexams.get(pos).getMsusername());
+        intent.putExtra("date",allexams.get(pos).getTimestamp().toString());
+        intent.putExtra("type",allexams.get(pos).getType());
+        intent.putExtra("results",allexams.get(pos).getResults());
+        intent.putExtra("advice",allexams.get(pos).getAdvice());
+        startActivity(intent);
     }
 
     public void setListData(Exam exam) {
