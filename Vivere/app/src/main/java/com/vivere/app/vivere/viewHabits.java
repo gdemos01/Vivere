@@ -1,6 +1,7 @@
 package com.vivere.app.vivere;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
@@ -36,7 +37,7 @@ public class viewHabits extends AppCompatActivity {
         Intent i = getIntent();
         int dtg = i.getExtras().getInt("daysToGo");
         int dd = i.getExtras().getInt("daysDone");
-        int per = (int)((float)dtg/66*100);
+        int per = (int)((float)dd/66*100);
         Timestamp t = new Timestamp(i.getExtras().getLong("date"));
         long daysToadd = ((long)dtg * 24 * 3600 * 1000+t.getTime());
         Date d = new Date();
@@ -44,8 +45,13 @@ public class viewHabits extends AppCompatActivity {
         String[] parts = d.toString().split(" ");
         String da = parts[2] +" "+ parts[1];
 
+        String habT = i.getExtras().getString("habitType");
+        if(habT.contains("Gain")){
+            habitType.setTextColor(Color.parseColor("#97CE68"));
+        }
+
         habitName.setText(i.getExtras().getString("habitName"));
-        habitType.setText(i.getExtras().getString("habitType"));
+        habitType.setText(habT);
         donutProgress.setProgress(per);
         daysDone.setText(String.valueOf(dd));
         daysToGo.setText(String.valueOf(dtg));

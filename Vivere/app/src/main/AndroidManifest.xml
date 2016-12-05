@@ -84,6 +84,12 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+        <activity
+            android:name=".addHabit"
+            android:label="Add Habit"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
         <!--SERVICES-->
 
         <service

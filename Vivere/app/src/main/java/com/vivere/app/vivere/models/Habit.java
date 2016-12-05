@@ -13,7 +13,7 @@ public class Habit {
     private int daystogo;
     private int daysdone;
     private Timestamp timestamp;
-    private Date lastupdated;
+    private Timestamp lastupdated;
     private String username;
 
     public Habit() {
@@ -24,9 +24,10 @@ public class Habit {
         this.timestamp = null;
         this.lastupdated = null;
         this.username = null;
+        this.lastupdated= null;
     }
 
-    public Habit(String hname, String type, int daystogo, int daysdone, Timestamp timestamp, Date lastupdated, String username) {
+    public Habit(String hname, String type, int daystogo, int daysdone, Timestamp timestamp, Timestamp lastupdated, String username) {
         this.hname = hname;
         this.type = type;
         this.daystogo = daystogo;
@@ -82,11 +83,11 @@ public class Habit {
         this.timestamp = timestamp;
     }
 
-    public Date getLastupdated() {
+    public Timestamp getLastupdated() {
         return lastupdated;
     }
 
-    public void setLastupdated(Date lastupdated) {
+    public void setLastupdated(Timestamp lastupdated) {
         this.lastupdated = lastupdated;
     }
 

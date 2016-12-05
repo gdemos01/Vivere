@@ -11,6 +11,8 @@ import android.widget.ListView;
 
 import com.vivere.app.vivere.R;
 import com.vivere.app.vivere.adapters.HabitAdapter;
+import com.vivere.app.vivere.addHabit;
+import com.vivere.app.vivere.db.DatabaseHelper;
 import com.vivere.app.vivere.models.Habit;
 import com.vivere.app.vivere.viewHabits;
 
@@ -28,6 +30,7 @@ public class HabitsFragment extends Fragment {
     private ArrayList<Habit> habits= new ArrayList<>();
     private HabitAdapter habAdapter;
     private FloatingActionButton habActionBtn;
+    public DatabaseHelper db;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,26 +44,23 @@ public class HabitsFragment extends Fragment {
             parent.removeView(view);
         }
 
+        db = new DatabaseHelper(getContext());
         habActionBtn = (FloatingActionButton) view.findViewById(R.id.habitsActionBtn);
         habAdapter = new HabitAdapter(getActivity(),HabitsFragment.this,R.layout.habit_item);
         habList = (ListView) view.findViewById(R.id.habitsListView);
         habList.setAdapter(habAdapter);
 
-        /*Demo data - later retrieve from database*/
-        Habit hab = new Habit();
-        hab.setDaysdone(33);
-        hab.setDaystogo(33);
-        hab.setTimestamp(new Timestamp(System.currentTimeMillis()));
-        hab.setHname("Stop drinking coke!");
-        hab.setType("Break");
-        habits.add(hab);
-        setListData(hab);
+
+        habits = db.getHabits();
+        for(int i=0;i<habits.size();i++){
+            setListData(habits.get(i));
+        }
 
         habActionBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(getActivity(), addAppointment.class);
-                //startActivity(intent);
+                Intent intent = new Intent(getActivity(), addHabit.class);
+                startActivity(intent);
             }
         });
 

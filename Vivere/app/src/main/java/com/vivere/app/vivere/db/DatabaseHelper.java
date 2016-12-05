@@ -258,7 +258,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         habit.setDaystogo(c.getInt(2));
         habit.setDaysdone(c.getInt(3));
         habit.setTimestamp(Timestamp.valueOf(c.getString(4)));
-        habit.setLastupdated(Date.valueOf(c.getString(5)));
+        habit.setLastupdated(Timestamp.valueOf(c.getString(5)));
         habit.setUsername(c.getString(6));
 
         c.moveToNext();
@@ -291,7 +291,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             habit.setDaystogo(c.getInt(2));
             habit.setDaysdone(c.getInt(3));
             habit.setTimestamp(Timestamp.valueOf(c.getString(4)));
-            habit.setLastupdated(Date.valueOf(c.getString(5)));
+            habit.setLastupdated(Timestamp.valueOf(c.getString(5)));
             habit.setUsername(c.getString(6));
             habits.add(habit);
             c.moveToNext();

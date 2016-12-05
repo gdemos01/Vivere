@@ -81,7 +81,7 @@ public class HabitAdapter extends ArrayAdapter{
             public void onClick(View view) {
                 final Handler handler = new Handler();
                 if(data.size()!=0) {
-                    // Delete from databases as well
+                    habitsFragment.db.deleteHabit(data.get(position).getHname());
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
