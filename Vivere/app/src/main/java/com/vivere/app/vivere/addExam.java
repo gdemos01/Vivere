@@ -16,6 +16,8 @@ import android.widget.TextView;
 import com.vivere.app.vivere.adapters.ExamSearchAdapter;
 import com.vivere.app.vivere.addExamDate;
 import com.vivere.app.vivere.addExamTime;
+import com.vivere.app.vivere.db.DatabaseHelper;
+import com.vivere.app.vivere.services.SearchMedicalSpecialist;
 
 /**
  * Created by kyria_000 on 1/12/2016.
@@ -30,6 +32,9 @@ public class addExam extends AppCompatActivity {
     private ListView listView;
     private EditText searchView;
     private EditText type;
+    public SearchMedicalSpecialist sms ;
+    private DatabaseHelper db;
+    private String ms_selected;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +66,15 @@ public class addExam extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 //Search
+                searchAdapter.clearData();
+                String str = charSequence.toString();
+                if(str.length()!=0) {
+                    if (sms != null) {
+                        sms.cancel(true);
+                    }
+                    sms = new SearchMedicalSpecialist();
+                    sms.execute(str, dropdown.getSelectedItem().toString());
+                }
             }
 
             @Override
@@ -73,7 +87,7 @@ public class addExam extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 TextView msTv = (TextView) view;
-                String msType = msTv.getText().toString();
+                final String msType = msTv.getText().toString();
 
                 cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -85,7 +99,12 @@ public class addExam extends AppCompatActivity {
                 selectDate.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        String extype = type.getText().toString();
+
                         Intent intent = new Intent(addExam.this,addExamDate.class);
+                        intent.putExtra("msusername",ms_selected);
+                        intent.putExtra("type",extype);
+
                         startActivity(intent);
 
                     }

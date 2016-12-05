@@ -81,7 +81,7 @@ public class HistoryFragment extends Fragment {
         }
 
         for(int i=0;i<exams.size();i++){
-            Exam exam = new Exam();
+            Exam exam = exams.get(i);
             String doctorName="";
             if(exam.getTimestamp().before(today)){
                 MedicalSpecialist ms = db.getMedicalSpecialist(exam.getMsusername());

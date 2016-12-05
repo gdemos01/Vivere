@@ -1,6 +1,7 @@
 package com.vivere.app.vivere.adapters;
 
 import android.content.Context;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +9,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.vivere.app.vivere.Fragments.AppointmentsFragment;
+import com.vivere.app.vivere.Fragments.ExamsFragment;
 import com.vivere.app.vivere.R;
+import com.vivere.app.vivere.models.Appointment;
 import com.vivere.app.vivere.models.Exam;
+import com.vivere.app.vivere.services.DeleteAppointment;
+import com.vivere.app.vivere.services.DeleteExam;
 
 import java.util.ArrayList;
 
@@ -19,6 +25,7 @@ import java.util.ArrayList;
 
 public class ExamsAdapter extends ArrayAdapter {
     ArrayList<Exam> data = new ArrayList<>();
+    ExamsFragment examsFragment;
     Context examActivity;
 
     public ExamsAdapter(Context context, int resource){
@@ -71,6 +78,21 @@ public class ExamsAdapter extends ArrayAdapter {
             @Override
             public void onClick(View view) {
                 //Delete the exam
+                final Handler handler = new Handler();
+                if(data.size()!=0) {
+                    // Delete from databases as well
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Exam a = data.get(position);
+                            DeleteExam delEx = new DeleteExam();
+                            delEx.execute(a.getId()+"");
+                            examsFragment.db.deleteExam(a.getId());
+                            data.remove(position);
+                            examsFragment.updateAdapter(position);
+                        }
+                    }, 300);
+                }
             }
         });
 

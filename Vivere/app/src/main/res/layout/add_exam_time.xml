@@ -42,10 +42,11 @@
 
 
         <TextView
+            android:id="@+id/add_exam"
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:padding="20dp"
-            android:text="Make"
+            android:text="Add"
             android:gravity="center"
             android:clickable="true"
             android:background="?attr/selectableItemBackground"
