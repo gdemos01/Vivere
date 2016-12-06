@@ -88,7 +88,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //TABLE Appointment
     private static final String COL_DESCRIPTION = "description";
-    private static final String COL_ADVICE ="advice";
+    private static final String COL_ADVICE = "advice";
     //private static final String COL_TIMESTAMP = "timestamp";
     //private static final String COL_USERNAME = "username";
     //private static final String COL_MSUSERNAME= "msusername";
@@ -107,7 +107,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_MEDICATION = "CREATE TABLE " + TB_MEDICATION + " (" + COL_MNAME + " TEXT PRIMARY KEY NOT NULL, "
             + COL_DURATION + " INT NOT NULL, " + COL_FREQUENCY + " TEXT NOT NULL ," + COL_DOSE + " TEXT NOT NULL, " + COL_TIMESTAKEN
-            + " INT NOT NULL, " + COL_USERNAME + " TEXT NOT NULL ," + COL_LASTUPDATED + " DATE NOT NULL " + ")";
+            + " INT NOT NULL, " + COL_USERNAME + " TEXT NOT NULL" + ")";
 
     private static final String CREATE_EXAM = "CREATE TABLE " + TB_EXAM + " (" + COL_ID + " INT PRIMARY KEY NOT NULL, "
             + COL_TYPE + " TEXT NOT NULL, " + COL_RESULTS + " TEXT NOT NULL ," + COL_TIMESTAMP + " DATE NOT NULL, " + COL_DOCTORSADVICE
@@ -124,7 +124,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_APPOINTMENT = "CREATE TABLE " + TB_APPOINTMENT + " (" + COL_USERNAME + " TEXT NOT NULL REFERENCES "
             + TB_PATIENT + "(" + COL_USERNAME + "), " + COL_MSUSERNAME + " TEXT NOT NULL REFERENCES " + TB_MEDSPEC + "(" + COL_MSUSERNAME + "), "
-            + COL_TIMESTAMP + " DATE NOT NULL, " + COL_DESCRIPTION + " TEXT NOT NULL, "+COL_ADVICE+" TEXT NOT NULL, "
+            + COL_TIMESTAMP + " DATE NOT NULL, " + COL_DESCRIPTION + " TEXT NOT NULL, " + COL_ADVICE + " TEXT NOT NULL, "
             + "PRIMARY KEY (" + COL_USERNAME + ", " + COL_MSUSERNAME + ", " + COL_TIMESTAMP + ")" + ")";
 
     /*Database Constructor
@@ -379,9 +379,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String sql =
                 "INSERT or replace INTO Medication (mname, duration, frequency, dose, timestaken, "
-                        + "username, lastupdated) VALUES('" + m.getName() + "', " + m.getDuration()
+                        + "username) VALUES('" + m.getName() + "', " + m.getDuration()
                         + ", '" + m.getFrequency() + "', " + m.getDose() + ", " + m.getTimestaken()
-                        + ", '" + m.getUsername() + "', '" + m.getLastupdated() + "')";
+                        + ", '" + m.getUsername() + "')";
         db.execSQL(sql);
     }
 
@@ -410,7 +410,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         medication.setDose(c.getInt(3));
         medication.setTimestaken(c.getInt(4));
         medication.setUsername(c.getString(5));
-        medication.setLastupdated(Date.valueOf(c.getString(6)));
+        //medication.setLastupdated(Date.valueOf(c.getString(6)));
 
         c.moveToNext();
 
@@ -443,7 +443,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             medication.setDose(c.getInt(3));
             medication.setTimestaken(c.getInt(4));
             medication.setUsername(c.getString(5));
-            medication.setLastupdated(Date.valueOf(c.getString(6)));
+            //medication.setLastupdated(Date.valueOf(c.getString(6)));
             medications.add(medication);
             c.moveToNext();
         }
@@ -564,8 +564,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         c.moveToFirst();
 
-        MedicalSpecialist medicalSpecialist =null;
-        if(c.getCount()!=0) {
+        MedicalSpecialist medicalSpecialist = null;
+        if (c.getCount() != 0) {
             medicalSpecialist = new MedicalSpecialist();
             medicalSpecialist.setMsusername(c.getString(0));
             medicalSpecialist.setPassword(c.getString(1));
@@ -663,8 +663,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String sql =
                 "INSERT or replace INTO Appointment (description, timestamp, username, msusername,advice) "
                         + "VALUES('" + a.getDescription() + "', '"
-                        + a.getDate() + "', '" + a.getPatient() + "', '" + a.getDoctor() + "','"+
-                        a.getAdvice()+"')";
+                        + a.getDate() + "', '" + a.getPatient() + "', '" + a.getDoctor() + "','" +
+                        a.getAdvice() + "')";
         db.execSQL(sql);
     }
 

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/med_vname"
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:layout_margin="15dp"
+        android:text="Medication Name"
+        android:gravity="center_vertical"
+        android:textAlignment="center"
+        android:textStyle="normal|bold"
+        android:textSize="22dp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:text="Duration"
+            android:gravity="center_vertical"
+            android:background="@color/colorPrimary"
+            android:textSize="23dp"
+            android:paddingLeft="10dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/med_vduration"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:text="Integer in days."
+            android:textSize="18dp"
+            android:gravity="center_vertical"
+            android:layout_weight="1"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:text="Frequence"
+            android:gravity="center_vertical"
+            android:background="@color/colorPrimary"
+            android:textSize="23dp"
+            android:paddingLeft="10dp"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:id="@+id/med_vfrequency"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:text="Dose in sting 2W."
+            android:textSize="18dp"
+            android:gravity="center_vertical"
+            android:layout_weight="2"/>
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:text="Dose"
+            android:gravity="center_vertical"
+            android:background="@color/colorPrimary"
+            android:textSize="23dp"
+            android:paddingLeft="10dp"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:id="@+id/med_vdose"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:text="Integer of units per day."
+            android:textSize="18dp"
+            android:gravity="center_vertical"
+            android:layout_weight="2"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:text="Times Taken"
+            android:gravity="center_vertical"
+            android:background="@color/colorPrimary"
+            android:textSize="23dp"
+            android:paddingLeft="10dp"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:id="@+id/med_vtimestaken"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:text="Integer of times taken."
+            android:textSize="18dp"
+            android:gravity="center_vertical"
+            android:layout_weight="2"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

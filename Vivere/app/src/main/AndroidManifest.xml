@@ -96,6 +96,12 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+        <activity
+            android:name=".viewMedication"
+            android:label="View Medication"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
         <!--SERVICES-->
 
         <service

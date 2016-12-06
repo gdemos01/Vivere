@@ -12,7 +12,7 @@ public class Medication {
     private String frequency;
     private int dose;
     private int timestaken;
-    private Date lastupdated;
+    //private Date lastupdated;
     private String username;
 
     public Medication() {
@@ -21,7 +21,7 @@ public class Medication {
         this.frequency = null;
         this.dose = -1;
         this.timestaken = -1;
-        this.lastupdated = null;
+        //this.lastupdated = null;
         this.username = null;
     }
 
@@ -31,7 +31,7 @@ public class Medication {
         this.frequency = frequency;
         this.dose = dose;
         this.timestaken = timestaken;
-        this.lastupdated = lastupdated;
+        //this.lastupdated = lastupdated;
         this.username = username;
     }
 
@@ -75,13 +75,13 @@ public class Medication {
         this.timestaken = timestaken;
     }
 
-    public Date getLastupdated() {
-        return lastupdated;
-    }
-
-    public void setLastupdated(Date lastupdated) {
-        this.lastupdated = lastupdated;
-    }
+//    public Date getLastupdated() {
+//        return lastupdated;
+//    }
+//
+//    public void setLastupdated(Date lastupdated) {
+//        this.lastupdated = lastupdated;
+//    }
 
     public String getUsername() {
         return username;
@@ -99,7 +99,6 @@ public class Medication {
                 ", frequency='" + frequency + '\'' +
                 ", dose=" + dose +
                 ", timestaken=" + timestaken +
-                ", lastupdated=" + lastupdated +
                 ", username='" + username + '\'' +
                 '}';
     }
