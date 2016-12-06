@@ -46,10 +46,10 @@ public class InsertExam extends AsyncTask<String,Void,String> {
             OutputStream outputStream = httpUrlConnection.getOutputStream();
             BufferedWriter bufferedWriter =
                     new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
-            String data_string = URLEncoder.encode(URLEncoder.encode("puser_name","UTF-8")+"="+URLEncoder.encode(puser_name,"UTF-8")+"&"+
+            String data_string = URLEncoder.encode("puser_name","UTF-8")+"="+URLEncoder.encode(puser_name,"UTF-8")+"&"+
                     URLEncoder.encode("msuser_name","UTF-8")+"="+URLEncoder.encode(msuser_name,"UTF-8")+"&"+
                     URLEncoder.encode("type","UTF-8")+"="+URLEncoder.encode(type,"UTF-8") +"&"+
-                    URLEncoder.encode("date","UTF-8")+"="+URLEncoder.encode(date,"UTF-8"));
+                    URLEncoder.encode("date","UTF-8")+"="+URLEncoder.encode(date,"UTF-8");
             bufferedWriter.write(data_string);
             bufferedWriter.flush();
             bufferedWriter.close();

@@ -48,13 +48,12 @@ public class InsertMedication extends AsyncTask<String, Void, String> {
             OutputStream outputStream = httpUrlConnection.getOutputStream();
             BufferedWriter bufferedWriter =
                     new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-            String data_string = URLEncoder.encode(URLEncoder.encode("username", "UTF-8")
+            String data_string = URLEncoder.encode("username", "UTF-8")
                     + "=" + URLEncoder.encode(username, "UTF-8") + "&" +
                     URLEncoder.encode("name", "UTF-8") + "=" + URLEncoder.encode(name, "UTF-8") + "&" +
                     URLEncoder.encode("duration", "UTF-8") + "=" + URLEncoder.encode(duration, "UTF-8") + "&" +
                     URLEncoder.encode("frequency", "UTF-8") + "=" + URLEncoder.encode(frequency, "UTF-8") + "&" +
-                    URLEncoder.encode("dose", "UTF-8") + "=" + URLEncoder.encode(dose, "UTF-8") + "&" +
-                    URLEncoder.encode("timestaken", "UTF-8") + "=" + URLEncoder.encode(timestaken, "UTF-8"));
+                    URLEncoder.encode("dose", "UTF-8") + "=" + URLEncoder.encode(dose, "UTF-8") ;
             bufferedWriter.write(data_string);
             bufferedWriter.flush();
             bufferedWriter.close();

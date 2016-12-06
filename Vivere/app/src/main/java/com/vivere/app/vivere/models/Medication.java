@@ -20,7 +20,7 @@ public class Medication {
         this.duration = -1;
         this.frequency = null;
         this.dose = -1;
-        this.timestaken = -1;
+        this.timestaken = 0;
         //this.lastupdated = null;
         this.username = null;
     }
