@@ -33,6 +33,7 @@ public class addExamTime extends AppCompatActivity {
     private ExamAvailableHoursAdapter avAdapter;
     private int selectedTime;
     private String type;
+    private String date;
 
 
     private String ms_selected;
@@ -69,6 +70,11 @@ public class addExamTime extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent inte = getIntent();
+                ms_selected=inte.getExtras().getString("msusername");
+                type = inte.getExtras().getString("type");
+                appMilliTime = inte.getExtras().getLong("date");
+
                 String parts[] = avHours.get(selectedTime).split(":");
                 long addTime = (long) (Integer.parseInt(parts[0])*60*60*1000);
                 long addMin = (long) (Integer.parseInt(parts[1])*60*1000);
@@ -76,6 +82,8 @@ public class addExamTime extends AppCompatActivity {
                 appMilliTime+= addMin;
 
                 Timestamp t = new Timestamp(appMilliTime);
+
+
 
                 Exam exam = new Exam();
                 exam.setUsername("john");

@@ -1,6 +1,7 @@
 package com.vivere.app.vivere.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +71,23 @@ public class ExamSearchAdapter extends ArrayAdapter {
         }
 
         mHolder.drName.setText("Dr "+data.get(position).getSurname()+" "+data.get(position).getName());
+        row.setOnClickListener(new ExamSearchAdapter.OnItemClickListener(position));
         return  row;
+    }
+
+    /********* Called when Item click in ListView ************/
+    private class OnItemClickListener  implements View.OnClickListener {
+        private int mPosition;
+
+        OnItemClickListener(int position){
+            mPosition = position;
+        }
+
+        @Override
+        public void onClick(View arg0) {
+            arg0.setBackgroundColor(Color.parseColor("#A6D7D5"));
+            addExam.onItemClick(mPosition);
+        }
     }
 
     public void clearData(){

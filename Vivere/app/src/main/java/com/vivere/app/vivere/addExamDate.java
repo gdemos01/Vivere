@@ -20,6 +20,8 @@ public class addExamDate extends AppCompatActivity {
     private TextView cancel;
     private DatePicker datePicker;
     public Calendar calendar;
+    private String ms_selected;
+    private String type;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +35,10 @@ public class addExamDate extends AppCompatActivity {
         int mYear = c.get(Calendar.YEAR);
         int mMonth = c.get(Calendar.MONTH);
         int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+        Intent inte = getIntent();
+        ms_selected=inte.getExtras().getString("msusername");
+        type =inte.getExtras().getString("type");
 
         datePicker.setMinDate(System.currentTimeMillis() - 1000);
         datePicker.init(mYear, mMonth, mDay, new DatePicker.OnDateChangedListener() {
@@ -65,7 +71,9 @@ public class addExamDate extends AppCompatActivity {
                     calendar = new GregorianCalendar(year, month, day);
                 }
                 Intent intent = new Intent(addExamDate.this, addExamTime.class);
+                intent.putExtra("msusername",ms_selected);
                 intent.putExtra("date", calendar.getTimeInMillis());
+                intent.putExtra("type", type);
                 startActivity(intent);
             }
         });

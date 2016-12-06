@@ -87,14 +87,16 @@ public class ExamsFragment extends Fragment {
         //GetMedicalSpecialist getMedicalSpecialist = new GetMedicalSpecialist();
         //getMedicalSpecialist.execute("strange");
 
-        allexams = db.getExams();
-        System.out.println(allexams);
+        allexams = new ArrayList<Exam>();
+        ArrayList<Exam> tmpexs = db.getExams();
+        System.out.println(tmpexs);
         Timestamp today = new Timestamp(System.currentTimeMillis());
 
         int count = 0;
-        while (count < allexams.size()) {
-            Exam ex = allexams.get(count);
+        while (count < tmpexs.size()) {
+            Exam ex = tmpexs.get(count);
             if (ex.getTimestamp().after(today)) {
+                allexams.add(ex);
                 setListData(ex);
             }
             count++;

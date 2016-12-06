@@ -17,6 +17,7 @@ import com.vivere.app.vivere.adapters.ExamSearchAdapter;
 import com.vivere.app.vivere.addExamDate;
 import com.vivere.app.vivere.addExamTime;
 import com.vivere.app.vivere.db.DatabaseHelper;
+import com.vivere.app.vivere.services.ExamSearchMedicalSpecialist;
 import com.vivere.app.vivere.services.SearchMedicalSpecialist;
 
 /**
@@ -28,11 +29,11 @@ public class addExam extends AppCompatActivity {
     private Spinner dropdown;
     private TextView selectDate;
     private TextView cancel;
-    private ExamSearchAdapter searchAdapter;
+    public static ExamSearchAdapter searchAdapter;
     private ListView listView;
     private EditText searchView;
     private EditText type;
-    public SearchMedicalSpecialist sms ;
+    public ExamSearchMedicalSpecialist sms ;
     private DatabaseHelper db;
     private String ms_selected;
 
@@ -48,6 +49,8 @@ public class addExam extends AppCompatActivity {
         searchAdapter = new ExamSearchAdapter(this,R.layout.ms_search_item);
         listView = (ListView)findViewById(R.id.examAppListView);
         listView.setAdapter(searchAdapter);
+
+        db = new DatabaseHelper(this);
 
         searchView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +75,7 @@ public class addExam extends AppCompatActivity {
                     if (sms != null) {
                         sms.cancel(true);
                     }
-                    sms = new SearchMedicalSpecialist();
+                    sms = new ExamSearchMedicalSpecialist();
                     sms.execute(str, dropdown.getSelectedItem().toString());
                 }
             }
@@ -117,6 +120,11 @@ public class addExam extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void onItemClick(int pos){
+        db.addMedicalSpecialist(searchAdapter.getItem(pos));
+        ms_selected = searchAdapter.getItem(pos).getMsusername();
     }
 
     public void updateAdapter() { searchAdapter.notifyDataSetChanged(); //update adapter
