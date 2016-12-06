@@ -21,11 +21,12 @@ import com.vivere.app.vivere.models.Appointment;
 import com.vivere.app.vivere.models.Inheritance;
 import com.vivere.app.vivere.models.Patient;
 
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.os.SystemClock;
+
+import com.vivere.app.vivere.notification.*;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -56,13 +57,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-                showNotificationWReply("Habit title", "The question goes here?");
+                //showNotificationWReply("Habit title", "The question goes here?");
+
+                //***********
                 //VivereNotificationService vns = new VivereNotificationService();
                 //Intent intent = new Intent(MainActivity.this, VivereNotificationService.class);
 
                 //vns.onHandleIntent(intent);
                 //vns.onStartCommand(intent, Service.START_FLAG_REDELIVERY, 123);
                 //vns.createNotification();
+                //************
+
+                //TODO TESTING NEW NOTIFICATION SYSTEM
+                scheduleNotification(getNotification("5 second delay"), 5000);
+                System.out.println("NOTIFICATION STARTED");
 
             }
 
@@ -226,5 +234,26 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void scheduleNotification(Notification notification, int delay) {
 
+        Intent notificationIntent = new Intent(this, NotificationPublisher.class);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1111);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        long futureInMillis = SystemClock.elapsedRealtime() + delay;
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+    }
+
+    private Notification getNotification(String content) {
+
+
+
+        Notification.Builder builder = new Notification.Builder(this);
+        builder.setContentTitle("Scheduled Notification");
+        builder.setContentText(content);
+        builder.setSmallIcon(R.drawable.ic_launcher);
+        return builder.build();
+    }
 }

@@ -108,6 +108,7 @@
             android:name=".VivereNotificationService"
             android:exported="false"/>
 
+        <receiver android:name=".notification.NotificationPublisher" />
 
     </application>
 
