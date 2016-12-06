@@ -57,6 +57,7 @@ public class addMedication extends AppCompatActivity {
                 medic.setDuration(Integer.parseInt(med_dur.getText().toString()));
                 medic.setName(med_name.getText().toString());
                 medic.setFrequency(med_freq.getText().toString());
+                medic.setTimestaken(0);
 
                 InsertMedication insertMedication = new InsertMedication();
                 insertMedication.execute(medic.getUsername(), medic.getName(), medic.getDuration()
