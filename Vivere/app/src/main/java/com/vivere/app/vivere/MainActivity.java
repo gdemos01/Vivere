@@ -17,8 +17,6 @@ import android.view.MenuItem;
 
 import com.vivere.app.vivere.adapters.myPagerAdapter;
 import com.vivere.app.vivere.db.DatabaseHelper;
-import com.vivere.app.vivere.models.Appointment;
-import com.vivere.app.vivere.models.Inheritance;
 import com.vivere.app.vivere.models.Patient;
 
 import android.app.AlarmManager;
@@ -69,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
                 //************
 
                 //TODO TESTING NEW NOTIFICATION SYSTEM
-                scheduleNotification(getNotification("5 second delay"), 5000);
+                //scheduleNotification(getNotification("5 second delay"), 5000);
+                //scheduleNotification(getNotificationYesNo("Title here", "5 second delay"), 5000, 15);
                 System.out.println("NOTIFICATION STARTED");
 
             }
@@ -234,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void scheduleNotification(Notification notification, int delay) {
+    public void scheduleNotification(Notification notification, int delay, int timeInterval) {
 
         Intent notificationIntent = new Intent(this, NotificationPublisher.class);
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1111);
@@ -243,24 +242,112 @@ public class MainActivity extends AppCompatActivity {
 
         long futureInMillis = SystemClock.elapsedRealtime() + delay;
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        //alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
 
-//        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-//                SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_HALF_HOUR,
-//                AlarmManager.INTERVAL_HALF_HOUR, pendingIntent);
+        boolean isScheduled = false;
+        if (!isScheduled) {
+            alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+        } else {
+            switch (timeInterval) {
+                case 15: {
+                    //15 min
+                    alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                            SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_FIFTEEN_MINUTES,
+                            AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
+                    break;
+                }
+                case 30: {
+                    //30 min
+                    alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                            SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_HALF_HOUR,
+                            AlarmManager.INTERVAL_HALF_HOUR, pendingIntent);
+                    break;
+                }
+                case 60: {
+                    //60 min
+                    alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                            SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_HOUR,
+                            AlarmManager.INTERVAL_HOUR, pendingIntent);
+                    break;
+                }
+                default: {//for a whole day
+                    alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                            SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_DAY,
+                            AlarmManager.INTERVAL_DAY, pendingIntent);
+                    break;
+                }
+            }
 
-        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_FIFTEEN_MINUTES,
-                AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
+
+        }
     }
 
-    private Notification getNotification(String content) {
-
-
+    public Notification getNotification(String content) {
         Notification.Builder builder = new Notification.Builder(this);
         builder.setContentTitle("Scheduled Notification");
         builder.setContentText(content);
         builder.setSmallIcon(R.drawable.ic_launcher);
+        return builder.build();
+    }
+
+    /**
+     * A specific notification creator by a specific title and context given and curret action for
+     * the yes/no responses.
+     *
+     * @param title
+     * @param content
+     * @return
+     */
+    public Notification getNotificationYesNo(String title, String content) {
+        Notification.Builder builder = new Notification.Builder(this);
+
+
+        //For YES reply button
+        Intent notificationIntent = new Intent(this, YOHabit.class);
+        notificationIntent.putExtra("helloval", "helloooooooooo");
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIntent);
+
+        // Key for the string that's delivered in the action's intent.
+        final String KEY_TEXT_REPLY = "key_text_reply";
+        String replyLabel = getResources().getString(R.string.notification_replylabel);
+        android.app.RemoteInput remoteInput = new android.app.RemoteInput.Builder(KEY_TEXT_REPLY)
+                .setLabel(replyLabel)
+                .build();
+
+        // Create the reply action and add the remote input.
+        Notification.Action action =
+                new Notification.Action.Builder(R.drawable.ic_thumb_up_black_24dp,
+                        getString(R.string.yes), contentIntent)
+                        .addRemoteInput(remoteInput)
+                        .build();
+
+        //For NO reply button
+        Intent notificationIntent2 = new Intent(this, NOHabit.class);
+        PendingIntent contentIntent2 = PendingIntent.getActivity(this, 0, notificationIntent2,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIntent2);
+
+        // Create the reply action and add the remote input.
+        Notification.Action action2 =
+                new Notification.Action.Builder(R.drawable.ic_thumb_down_black_24dp,
+                        getString(R.string.no), contentIntent2)
+                        .addRemoteInput(remoteInput)
+                        .build();
+
+        // Build the notification and add the action.
+        builder.setSmallIcon(R.drawable.vivere_logo_bw2)
+                .setContentTitle(title)
+                .setContentText(content)
+                .addAction(action)
+                .addAction(action2);
+
+        // Add as notification
+        //NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        //manager.notify(22, builder.build());
+        //manager.notify(22, newMessageNotification);
+
+
         return builder.build();
     }
 }

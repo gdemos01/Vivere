@@ -102,6 +102,18 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+        <activity
+            android:name=".notification.YOHabit"
+            android:label="YOHabit"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity
+            android:name=".notification.NOHabit"
+            android:label="NOHabit"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
         <!--SERVICES-->
 
         <service
