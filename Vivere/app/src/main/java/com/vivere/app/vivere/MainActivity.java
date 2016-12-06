@@ -281,11 +281,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public Notification getNotification(String content) {
+    public Notification getNotification(String title, String content) {
         Notification.Builder builder = new Notification.Builder(this);
-        builder.setContentTitle("Scheduled Notification");
+        builder.setContentTitle(title);
         builder.setContentText(content);
-        builder.setSmallIcon(R.drawable.ic_launcher);
+        builder.setSmallIcon(R.drawable.vivere_logo_bw2);
         return builder.build();
     }
 
