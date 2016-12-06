@@ -94,7 +94,7 @@ public class addExamTime extends AppCompatActivity {
                 exam.setType(type);
 
                 InsertExam insertExam = new InsertExam();
-                insertExam.execute("john",ms_selected, type, t.toString(), " ");
+                insertExam.execute("john",ms_selected, type, t.toString());
                 db.addExam(exam);
                 Intent intent = new Intent(addExamTime.this,MainActivity.class);
                 startActivity(intent);

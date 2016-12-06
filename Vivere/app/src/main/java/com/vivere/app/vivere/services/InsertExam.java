@@ -36,7 +36,6 @@ public class InsertExam extends AsyncTask<String,Void,String> {
         String msuser_name = args[1];
         String type = args[2];
         String date = args[3];
-        String advice = args[4];
         String outcome;
 
         try {
@@ -50,8 +49,7 @@ public class InsertExam extends AsyncTask<String,Void,String> {
             String data_string = URLEncoder.encode(URLEncoder.encode("puser_name","UTF-8")+"="+URLEncoder.encode(puser_name,"UTF-8")+"&"+
                     URLEncoder.encode("msuser_name","UTF-8")+"="+URLEncoder.encode(msuser_name,"UTF-8")+"&"+
                     URLEncoder.encode("type","UTF-8")+"="+URLEncoder.encode(type,"UTF-8") +"&"+
-                    URLEncoder.encode("date","UTF-8")+"="+URLEncoder.encode(date,"UTF-8") +"&"+
-                    URLEncoder.encode("advice","UTF-8")+"="+URLEncoder.encode(advice,"UTF-8"));
+                    URLEncoder.encode("date","UTF-8")+"="+URLEncoder.encode(date,"UTF-8"));
             bufferedWriter.write(data_string);
             bufferedWriter.flush();
             bufferedWriter.close();
