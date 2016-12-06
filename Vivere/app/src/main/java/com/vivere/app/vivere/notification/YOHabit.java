@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.vivere.app.vivere.MainActivity;
 import com.vivere.app.vivere.R;
+import com.vivere.app.vivere.db.DatabaseHelper;
+import com.vivere.app.vivere.models.Habit;
 
 /**
  * Created by kyria_000 on 6/12/2016.
@@ -12,13 +15,17 @@ import com.vivere.app.vivere.R;
 
 public class YOHabit extends Activity {
 
+    private DatabaseHelper db;
+
     public YOHabit() {
-        System.out.println("YO CLASS HELLO");
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        db = new DatabaseHelper(this);
 
         setContentView(R.layout.yes_habit);
         Handler handler = new Handler();
@@ -29,9 +36,14 @@ public class YOHabit extends Activity {
             }
         }, 4000);
 
-        System.out.println("YO CLASS HELLO");
-        System.out.println("MESATZ " + getIntent().getExtras().getString("helloval"));
+        String habit_name = getIntent().getExtras().getString("habit_name");
 
+        Habit habit = db.getHabit(habit_name, "john");
+        habit.setDaysdone(habit.getDaysdone() + 1);
+        habit.setDaystogo(habit.getDaystogo() - 1);
+
+        db.addHabit(habit);
+        db.close();
 
     }
 }

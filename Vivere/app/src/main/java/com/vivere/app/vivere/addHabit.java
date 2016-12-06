@@ -57,7 +57,7 @@ public class addHabit extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 int radioChoice = radioGroup.getCheckedRadioButtonId();
-                radioSelected = (RadioButton)findViewById(radioChoice);
+                radioSelected = (RadioButton) findViewById(radioChoice);
                 Habit habit = new Habit();
                 habit.setDaysdone(0);
                 habit.setDaystogo(66);
@@ -69,15 +69,15 @@ public class addHabit extends AppCompatActivity {
                 habit.setLastupdated(t);
                 db.addHabit(habit);
                 scheduleNotification(getNotificationYesNo(habit.getHname(),
-                                "Have you been loyal to your goal today?"), 5000, 15);
+                        "Have you been loyal to your goal today?", habit.getHname()), 5000, 1); //once a day
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent intent = new Intent(addHabit.this,MainActivity.class);
+                        Intent intent = new Intent(addHabit.this, MainActivity.class);
                         startActivity(intent);
                     }
-                },300);
+                }, 300);
             }
         });
     }
@@ -90,13 +90,13 @@ public class addHabit extends AppCompatActivity {
      * @param content
      * @return
      */
-    public Notification getNotificationYesNo(String title, String content) {
+    public Notification getNotificationYesNo(String title, String content, String habitName) {
         Notification.Builder builder = new Notification.Builder(this);
 
 
         //For YES reply button
         Intent notificationIntent = new Intent(this, YOHabit.class);
-        notificationIntent.putExtra("helloval", "helloooooooooo");
+        notificationIntent.putExtra("habit_name", habitName);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(contentIntent);
@@ -117,6 +117,7 @@ public class addHabit extends AppCompatActivity {
 
         //For NO reply button
         Intent notificationIntent2 = new Intent(this, NOHabit.class);
+        notificationIntent2.putExtra("habit_name", habitName);
         PendingIntent contentIntent2 = PendingIntent.getActivity(this, 0, notificationIntent2,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(contentIntent2);
@@ -154,7 +155,7 @@ public class addHabit extends AppCompatActivity {
         long futureInMillis = SystemClock.elapsedRealtime() + delay;
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
-        boolean isScheduled = true;
+        boolean isScheduled = true; //turn it to false for DEBUG
         if (!isScheduled) {
             alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
         } else {
