@@ -111,13 +111,13 @@ public class addExamTime extends AppCompatActivity {
                 long onehourbefore = exam.getTimestamp().getTime() - (long) (24 * 60 * 60 * 1000);
 
                 int randomid = (int) (Math.random() * 2000000000);
-                scheduleNotification(getNotification(exam.getType() + " Exam",
+                scheduleNotification(getNotification("Exam Reminder",exam.getType(),
                         "You have an exam with Dr. " + exam.getMsusername() + " in 24 hours."),
                         onedaybefore, 1, 500 + randomid, false);
 
                 //Notification for the exam an hour before
                 randomid = (int) (Math.random() * 2000000000);
-                scheduleNotification(getNotification(exam.getType() + " Exam",
+                scheduleNotification(getNotification("Exam Reminder", exam.getType(),
                         "You have an exam with Dr. " + exam.getMsusername() + " in 1 hour."),
                         onehourbefore, 1, 500 + randomid, false);
 
@@ -155,10 +155,11 @@ public class addExamTime extends AppCompatActivity {
      * @return
      */
 
-    public Notification getNotification(String title, String content) {
+    public Notification getNotification(String title, String content, String subtext) {
         Notification.Builder builder = new Notification.Builder(this);
         builder.setContentTitle(title);
         builder.setContentText(content);
+        builder.setSubText(subtext);
         builder.setSmallIcon(R.drawable.vivere_logo_bw2);
         return builder.build();
     }
