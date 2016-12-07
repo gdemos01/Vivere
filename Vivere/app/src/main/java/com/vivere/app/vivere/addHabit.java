@@ -23,6 +23,7 @@ import com.vivere.app.vivere.notification.NotificationPublisher;
 import com.vivere.app.vivere.notification.YOHabit;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 /**
  * Created by Giorgos on 05-Dec-16.
@@ -68,9 +69,14 @@ public class addHabit extends AppCompatActivity {
                 habit.setTimestamp(t);
                 habit.setLastupdated(t);
                 db.addHabit(habit);
+
+                int randomid = (int) (Math.random() * 2000000000);
                 scheduleNotification(getNotificationYesNo(habit.getHname(),
-                        "Have you been loyal to your goal today?", habit.getHname()), 5000, 1); //once a day
+                        "Have you been loyal to your goal today?", habit.getHname()),
+                        5000, 1, 500 + randomid); //once a day
+
                 Handler handler = new Handler();
+
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -145,10 +151,10 @@ public class addHabit extends AppCompatActivity {
         return builder.build();
     }
 
-    public void scheduleNotification(Notification notification, int delay, int timeInterval) {
+    public void scheduleNotification(Notification notification, int delay, int timeInterval, int notificationID) {
 
         Intent notificationIntent = new Intent(this, NotificationPublisher.class);
-        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1111);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, notificationID);
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
