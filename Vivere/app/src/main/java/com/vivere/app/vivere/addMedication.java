@@ -1,7 +1,12 @@
 package com.vivere.app.vivere;
 
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
@@ -9,6 +14,7 @@ import android.widget.TextView;
 
 import com.vivere.app.vivere.db.DatabaseHelper;
 import com.vivere.app.vivere.models.Medication;
+import com.vivere.app.vivere.notification.NotificationPublisher;
 import com.vivere.app.vivere.services.InsertMedication;
 
 /**
@@ -65,10 +71,76 @@ public class addMedication extends AppCompatActivity {
 
                 db.addMedication(medic);
 
+                //Schedule Notifications
+
+                for (int i = 0; i < medic.getDose(); i++) {
+                    int randomid = (int) (Math.random() * 2000000000);
+                    scheduleNotification(getNotification("Medication Reminder", medic.getName(),
+                            "Did you take your meds?"), 0, 60, 200 + randomid, true);
+                }
+
+
                 Intent intent = new Intent(addMedication.this, MainActivity.class);
                 startActivity(intent);
             }
         });
+    }
+
+    public Notification getNotification(String title, String content, String subtext) {
+        Notification.Builder builder = new Notification.Builder(this);
+        builder.setContentTitle(title);
+        builder.setContentText(content);
+        builder.setSubText(subtext);
+        builder.setSmallIcon(R.drawable.vivere_logo_bw2);
+        return builder.build();
+    }
+
+    public void scheduleNotification(Notification notification, long delay, int timeInterval, int notificationID, boolean isScheduled) {
+
+        Intent notificationIntent = new Intent(this, NotificationPublisher.class);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, notificationID);
+        notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, notificationID, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        long futureInMillis = SystemClock.elapsedRealtime() + delay;
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        //boolean isScheduled = true; //turn it to false for DEBUG
+        if (!isScheduled) {
+            alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+        } else {
+            switch (timeInterval) {
+                case 15: {
+                    //15 min
+                    alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                            SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_FIFTEEN_MINUTES,
+                            AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
+                    break;
+                }
+                case 30: {
+                    //30 min
+                    alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                            SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_HALF_HOUR,
+                            AlarmManager.INTERVAL_HALF_HOUR, pendingIntent);
+                    break;
+                }
+                case 60: {
+                    //60 min
+                    alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                            SystemClock.elapsedRealtime() + (AlarmManager.INTERVAL_HOUR * 8),
+                            AlarmManager.INTERVAL_HOUR * 8, pendingIntent);
+                    break;
+                }
+                default: {//for a whole day
+                    alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                            SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_DAY,
+                            AlarmManager.INTERVAL_DAY, pendingIntent);
+                    break;
+                }
+            }
+
+
+        }
     }
 
 }
