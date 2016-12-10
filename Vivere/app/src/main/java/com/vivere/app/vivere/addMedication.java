@@ -73,10 +73,13 @@ public class addMedication extends AppCompatActivity {
 
                 //Schedule Notifications
 
+                long tdelay =0;
+                long additionalDelay = (long)(2*60*60*1000);
                 for (int i = 0; i < medic.getDose(); i++) {
                     int randomid = (int) (Math.random() * 2000000000);
                     scheduleNotification(getNotification("Medication Reminder", medic.getName(),
-                            "Did you take your meds?"), 0, 60, 200 + randomid, true);
+                            "Did you take your meds?"), tdelay, 60, 200 + randomid, true);
+                    tdelay+= additionalDelay;
                 }
 
 
@@ -127,7 +130,7 @@ public class addMedication extends AppCompatActivity {
                 case 60: {
                     //60 min
                     alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                            SystemClock.elapsedRealtime() + (AlarmManager.INTERVAL_HOUR * 8),
+                            SystemClock.elapsedRealtime() + (AlarmManager.INTERVAL_HOUR * 8+delay),
                             AlarmManager.INTERVAL_HOUR * 8, pendingIntent);
                     break;
                 }
